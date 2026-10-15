@@ -342,7 +342,7 @@ def event_dummies(df: pd.DataFrame, min_e=-5, max_e=10, bin_ends=True, by_cohort
     e = d.rel_time.copy()
     if bin_ends:
         e = e.clip(min_e, max_e)
-    names = []
+    cols = {}
     cohorts = sorted(d.loc[d.g > 0, "g"].unique()) if by_cohort else [None]
     for c in cohorts:
         for k in range(min_e, max_e + 1):
@@ -350,10 +350,10 @@ def event_dummies(df: pd.DataFrame, min_e=-5, max_e=10, bin_ends=True, by_cohort
                 continue
             nm = f"ev_{k}" if c is None else f"sa_{c}_{k}"
             sel = (e == k) if c is None else ((e == k) & (d.g == c))
-            if sel.sum() == 0:
-                continue
-            d[nm] = sel.astype(float)
-            names.append(nm)
+            if sel.sum():
+                cols[nm] = sel.astype(float)
+    names = list(cols)
+    d = pd.concat([d, pd.DataFrame(cols, index=d.index)], axis=1)
     return d, names
 
 

@@ -1,0 +1,25 @@
+outcome,estimator,wald,df,p_value
+pov_rate,"CS (REG, nunca tratados)",7.518890619880952,4,0.1108791754470462
+pov_rate,"CS (REG, ainda não tratados)",5.578841016223848,4,0.23288572393527607
+pov_rate,"CS (sem covariáveis, nunca tratados)",15.653635403598607,4,0.003520954545927203
+pov_rate,"CS (DR c/ fallback REG, nunca tratados)",14.277679956215781,4,0.0064595713551521714
+ln_n_poor,"CS (REG, nunca tratados)",5.6126057715972255,4,0.23000722926720044
+ln_n_poor,"CS (REG, ainda não tratados)",5.341089349391093,4,0.25405497181345754
+ln_n_poor,"CS (sem covariáveis, nunca tratados)",5.003539321313822,4,0.2869345314633722
+ln_n_poor,"CS (DR c/ fallback REG, nunca tratados)",7.0614142110121385,4,0.1326781399245486
+asinh_n_poor,"CS (REG, nunca tratados)",2.782775653291954,4,0.5948095857365505
+asinh_n_poor,"CS (REG, ainda não tratados)",3.1346512946184713,4,0.5355500687673826
+asinh_n_poor,"CS (sem covariáveis, nunca tratados)",3.546320342886173,4,0.4708702759989494
+asinh_n_poor,"CS (DR c/ fallback REG, nunca tratados)",4.270088012574248,4,0.37068568147668357
+d_ln_n_poor,"CS (REG, nunca tratados)",3.965127251083083,4,0.41074593533738935
+d_ln_n_poor,"CS (REG, ainda não tratados)",3.8275831571011887,4,0.4298425081451358
+d_ln_n_poor,"CS (sem covariáveis, nunca tratados)",3.9393779556222066,4,0.414272316629544
+d_ln_n_poor,"CS (DR c/ fallback REG, nunca tratados)",3.809799726728727,4,0.4323581669431764
+poverty_gap,"CS (REG, nunca tratados)",5.808084121550365,4,0.21394643083052084
+poverty_gap,"CS (REG, ainda não tratados)",3.6900659482415437,4,0.4495724241772422
+poverty_gap,"CS (sem covariáveis, nunca tratados)",10.581551843104409,4,0.031691984007864125
+poverty_gap,"CS (DR c/ fallback REG, nunca tratados)",10.482857706710123,4,0.033033941549903315
+ln_mean,"CS (REG, nunca tratados)",4.970672935630596,4,0.2903198941059003
+ln_mean,"CS (REG, ainda não tratados)",3.9020600010213933,4,0.4194228252629255
+ln_mean,"CS (sem covariáveis, nunca tratados)",7.809980651258387,4,0.09879214267590607
+ln_mean,"CS (DR c/ fallback REG, nunca tratados)",10.984336111548206,4,0.02674062003950612
