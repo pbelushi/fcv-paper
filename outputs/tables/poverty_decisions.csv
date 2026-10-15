@@ -1,0 +1,6 @@
+regra,decisao
+reporting_level,apenas 'national'; países sem série nacional excluídos: ['ARG']
+nowcast,"anos nowcast excluídos: [2025, 2026]; fim da amostra = 2024"
+welfare_type_lineup,47 países mudam renda/consumo na série lineup (regra do PIP mantida)
+welfare_type_survey,série observada: welfare_type com mais anos por país (empate -> consumo)
+zeros,448 país-anos com n_poor == 0 (ln indefinido; usar asinh_n_poor)
