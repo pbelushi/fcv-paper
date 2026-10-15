@@ -169,6 +169,7 @@ def main() -> None:
     A("![](../outputs/figures/ex2_distributed_lags_ln_n_poor.png)\n")
 
     ex3_section(A)
+    ex4_section(A)
     (REPORT / "exercicios.md").write_text("\n".join(L), encoding="utf-8")
     print("report/exercicios.md gerado.")
 
@@ -286,6 +287,108 @@ def ex3_section(A) -> None:
         A(f"- A variante (c′), só ECS com controles ECS, dá {f(cp.estimate.iloc[0], 3)} (EP {f(cp.se.iloc[0], 3)}), mas "
           f"com apenas {int(cp.n_controls.iloc[0])} controles com `ln_n_poor` completo. É frágil demais para sustentar "
           "conclusões.\n")
+
+
+
+def ex4_section(A) -> None:
+    """Exercício 4 (src/14_power_simulation.py); pulado se os CSVs ex4_ ainda não existem."""
+    if not ((TABLES / "ex4_power.csv").exists() and (TABLES / "ex4_mde.csv").exists()):
+        return
+    pw, mde = T("ex4_power.csv"), T("ex4_mde.csv")
+    R = int(mde.replicas.min())
+    lab = {"original": "Onset original", "limiar_1": "limiar_1"}
+    A("\n## Exercício 4 — Poder estatístico\n")
+    A("*Gerado a partir de `outputs/tables/ex4_power.csv` e `ex4_mde.csv` (`src/14_power_simulation.py`).*\n")
+    A(f"**Desenho.** Simulação placebo nos dados reais. Em cada réplica ({R} por δ), sorteiam-se entre os nunca tratados "
+      "\"falsos tratados\" com o mesmo número de países e os mesmos anos de onset dos tratados efetivamente usados em "
+      "cada especificação e variável. As covariáveis pré são recalculadas para o g sorteado. Soma-se δ·s(e) ao resultado "
+      "a partir de g, com s(e) = 1 (efeito constante) ou s(e) = min((e+1)/6, 1) (cresce linearmente e atinge δ em e = 5). "
+      "Estima-se com o estimador de referência (CS REG, nunca tratados, bootstrap multiplicador). Poder = fração de "
+      "réplicas com IC 95% excluindo zero; MDE = menor δ com poder ≥ 80%. Os mesmos sorteios são usados para todos os δ. "
+      "Grade: taxa 0–10 p.p. (passo 0,5); log nº pobres 0–0,6 (passo 0,05).\n")
+    t = mde.copy()
+    t["spec"] = t.spec.map(lab)
+    t["tamanho (IC 95%)"] = [f"{f(r.tamanho_delta0, 3)} [{f(r.tamanho_ic_low, 3)}; {f(r.tamanho_ic_high, 3)}]"
+                            for r in t.itertuples()]
+    gmax = pw.groupby("outcome").delta.max()
+    for col in ("mde_grade", "mde_interpolado"):
+        t[col] = [f(v, 3) if pd.notna(v) else f"> {f(gmax[o])}" for v, o in zip(t[col], t.outcome)]
+    ep_sim = pw[pw.delta == 0].groupby(["spec", "outcome", "formato"]).ep_medio.first()
+    t["EP simulado (δ=0)"] = [ep_sim.get((s, o, fm), np.nan) for s, o, fm in zip(mde.spec, mde.outcome, mde.formato)]
+    A(md_table(t[["spec", "outcome", "formato", "tamanho (IC 95%)", "mde_grade", "mde_interpolado", "mde_aprox_2_8_ep",
+                  "EP simulado (δ=0)", "ep_estimado", "att_estimado", "poder_no_att_estimado"]]
+               .rename(columns={"mde_grade": "MDE (grade)", "mde_interpolado": "MDE (interp.)",
+                                "mde_aprox_2_8_ep": "2,8 × EP real", "ep_estimado": "EP real",
+                                "att_estimado": "ATT estimado", "poder_no_att_estimado": "poder em |ATT|"})))
+    A("\n![](../outputs/figures/ex4_power_curve_pov_rate.png)")
+    A("![](../outputs/figures/ex4_power_curve_ln_n_poor.png)\n")
+
+    A("### Leitura\n")
+    c = mde[mde.formato == "constante"]
+    for r in c.itertuples():
+        unit = "p.p." if r.outcome == "pov_rate" else "log-pontos"
+        extra = "" if r.outcome == "pov_rate" else f" (≈ {f(100 * (np.exp(r.mde_interpolado) - 1), 0)}% mais pobres)"
+        above = abs(r.att_estimado) >= r.mde_interpolado
+        A(f"- **{lab[r.spec]} / {r.outcome}:** MDE ≈ {f(r.mde_interpolado)} {unit}{extra} com efeito constante. "
+          f"O |ATT| estimado ({f(abs(r.att_estimado), 3)}) está {'acima' if above else 'abaixo'} do MDE; o poder para um "
+          f"efeito desse tamanho seria {f(100 * r.poder_no_att_estimado, 0)}%.")
+    sz = mde.drop_duplicates(["spec", "outcome"])
+    over = sz[sz.tamanho_ic_low > 0.05]
+    under = sz[sz.tamanho_ic_high < 0.05]
+    A(f"- **Tamanho do teste (δ = 0):** de {f(100 * sz.tamanho_delta0.min(), 1)}% a {f(100 * sz.tamanho_delta0.max(), 1)}%. "
+      + ("Rejeita acima de 5% (IC exclui 5%) em: " + ", ".join(f"{lab[r.spec]}/{r.outcome}" for r in over.itertuples())
+         + ". O IC 95% bootstrap é liberal nesses casos, e o MDE fica otimista. " if len(over) else "")
+      + ("Conservador em: " + ", ".join(f"{lab[r.spec]}/{r.outcome}" for r in under.itertuples()) + ". "
+         if len(under) else "")
+      + ("O teste tem tamanho compatível com 5% em todos os casos." if not len(over) and not len(under) else ""))
+    lin = mde[mde.formato != "constante"].set_index(["spec", "outcome"])
+    con = c.set_index(["spec", "outcome"])
+    ratio = (lin.mde_interpolado / con.mde_interpolado).dropna()
+    out_grid = mde[mde.mde_interpolado.isna()]
+    A(f"- **Efeito que cresce até e = 5:** o MDE (em termos do efeito de longo prazo) é {f(ratio.min(), 2)}–{f(ratio.max(), 2)} "
+      "vezes o do efeito constante, porque os primeiros anos pós-onset carregam só parte do efeito."
+      + "".join(f" Em {lab[r.spec]}/{r.outcome} ({r.formato}), o poder não chega a 80% dentro da grade: o MDE é maior que "
+                f"{f(pw[(pw.spec == r.spec) & (pw.outcome == r.outcome)].delta.max())}, com poder de "
+                f"{f(100 * pw[(pw.spec == r.spec) & (pw.outcome == r.outcome) & (pw.formato == r.formato)].sort_values('delta').poder.iloc[-1], 0)}% "
+                "no topo da grade." for r in out_grid.itertuples()))
+    rr = (c.set_index(["spec", "outcome"]).mde_interpolado / c.set_index(["spec", "outcome"]).mde_aprox_2_8_ep)
+    ci_ = c.set_index(["spec", "outcome"])
+    ep_r = pd.Series([ep_sim.get((s, o, "constante"), np.nan) for s, o in ci_.index], index=ci_.index) / ci_.ep_estimado
+    A("- **Simulação × 2,8 × EP real** (efeito constante):")
+    for o, nome in [("pov_rate", "taxa"), ("ln_n_poor", "log nº pobres")]:
+        ro, eo = rr.xs(o, level="outcome"), ep_r.xs(o, level="outcome")
+        A(f"  - *{nome}*: MDE simulado / (2,8 × EP real) = {f(ro.min(), 2)}–{f(ro.max(), 2)}; EP das réplicas / EP real = "
+          f"{f(eo.min(), 2)}–{f(eo.max(), 2)}. "
+          + ("As réplicas são **menos ruidosas** que os tratados reais, pois os falsos tratados vêm de nunca tratados de "
+             "pobreza mais baixa e estável. Por isso o MDE simulado **subestima** o relevante, e 2,8 × EP real "
+             f"({f(c[c.outcome == o].mde_aprox_2_8_ep.min(), 2)}–{f(c[c.outcome == o].mde_aprox_2_8_ep.max(), 2)}) "
+             "é a referência mais prudente."
+             if eo.max() < 0.9 else
+             "As réplicas são **mais ruidosas** que os tratados reais (logs de países com pobreza muito baixa oscilam "
+             "muito). Aqui o MDE simulado é o mais prudente."
+             if eo.min() > 1.1 else
+             "Ruído comparável; as duas abordagens são coerentes."))
+    A(f"- **Limitação:** o grupo de controle placebo é menor que o real (o pool cede os falsos tratados), o que tende a "
+      "tornar o MDE simulado levemente conservador. Os falsos tratados também não reproduzem o perfil dos tratados reais "
+      "(pobreza alta, choques correlacionados).\n")
+    def span(o):
+        v = pd.concat([c[c.outcome == o].mde_interpolado, c[c.outcome == o].mde_aprox_2_8_ep])
+        return v.min(), v.max()
+    pl, ph = span("pov_rate")
+    ll_, lh = span("ln_n_poor")
+    all_below = bool((c.att_estimado.abs() < c[["mde_interpolado", "mde_aprox_2_8_ep"]].min(axis=1)).all())
+    A(f"**Conclusão.** Com o desenho atual, e contando os dois critérios (simulação e 2,8 × EP), só seriam detectados "
+      f"com 80% de poder efeitos de cerca de {f(pl, 1)}–{f(ph, 1)} p.p. na taxa de pobreza extrema e de {f(ll_, 2)}–{f(lh, 2)} "
+      f"no log do número de pobres (+{f(100 * (np.exp(ll_) - 1), 0)}% a +{f(100 * (np.exp(lh) - 1), 0)}% de pobres), "
+      "para efeitos constantes. Efeitos que se acumulam ao longo do tempo exigem um δ de longo prazo ainda maior. "
+      + ("Todos os |ATT| estimados estão abaixo desses limiares. Os resultados nulos dos exercícios anteriores são "
+         "compatíveis tanto com efeito zero quanto com efeitos moderados, que o desenho não consegue distinguir: um "
+         "efeito constante de 2 p.p. na taxa seria detectado em só "
+         f"{f(100 * pw[(pw.outcome == 'pov_rate') & (pw.formato == 'constante') & (pw.delta == 2)].poder.min(), 0)}–"
+         f"{f(100 * pw[(pw.outcome == 'pov_rate') & (pw.formato == 'constante') & (pw.delta == 2)].poder.max(), 0)}% "
+         "das réplicas. \"Não significativo\" aqui significa \"não detectável\", não \"ausente\".\n"
+         if all_below else
+         "Pelo menos um |ATT| estimado supera o MDE; ver a tabela.\n"))
 
 
 if __name__ == "__main__":

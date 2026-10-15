@@ -375,3 +375,39 @@ Critérios definidos antes de ver os resultados (`src/12_report_exercises.py`): 
 - *Componente de canal* (o efeito é na taxa, não na população): **confirma-se** (ATT ln pop = 5% do total).
 - *O que os dados mostram:* nos tratados fora de ECS (pobreza pré mediana 41,78%), a pobreza cai em p.p. em relação aos controles (Δ taxa dif mediana -1,99 p.p.), mas cai **proporcionalmente menos** (Δ ln taxa dif mediana 0,220). Os controles partem de pobreza mais baixa e têm quedas proporcionais maiores. O ATT positivo em log reflete esse contraste de taxas proporcionais em países de pobreza alta (sobretudo África Subsaariana), não pequenas variações em países de pobreza baixa. Isso também mostra que o efeito em log e o efeito em p.p. dependem de hipóteses de tendências paralelas diferentes (em log ou em nível), que não podem valer ao mesmo tempo quando os níveis iniciais diferem tanto.
 - A variante (c′), só ECS com controles ECS, dá 1,180 (EP 0,598), mas com apenas 7 controles com `ln_n_poor` completo. É frágil demais para sustentar conclusões.
+
+
+## Exercício 4 — Poder estatístico
+
+*Gerado a partir de `outputs/tables/ex4_power.csv` e `ex4_mde.csv` (`src/14_power_simulation.py`).*
+
+**Desenho.** Simulação placebo nos dados reais. Em cada réplica (500 por δ), sorteiam-se entre os nunca tratados "falsos tratados" com o mesmo número de países e os mesmos anos de onset dos tratados efetivamente usados em cada especificação e variável. As covariáveis pré são recalculadas para o g sorteado. Soma-se δ·s(e) ao resultado a partir de g, com s(e) = 1 (efeito constante) ou s(e) = min((e+1)/6, 1) (cresce linearmente e atinge δ em e = 5). Estima-se com o estimador de referência (CS REG, nunca tratados, bootstrap multiplicador). Poder = fração de réplicas com IC 95% excluindo zero; MDE = menor δ com poder ≥ 80%. Os mesmos sorteios são usados para todos os δ. Grade: taxa 0–10 p.p. (passo 0,5); log nº pobres 0–0,6 (passo 0,05).
+
+| spec | outcome | formato | tamanho (IC 95%) | MDE (grade) | MDE (interp.) | 2,8 × EP real | EP simulado (δ=0) | EP real | ATT estimado | poder em |ATT| |
+|---|---|---|---|---|---|---|---|---|---|---|
+| limiar_1 | ln_n_poor | constante | 0,042 [0,024; 0,060] | 0,550 | 0,502 | 0,319 | 0,162 | 0,114 | 0,146 | 0,201 |
+| limiar_1 | ln_n_poor | linear até e=5 | 0,042 [0,024; 0,060] | > 0,60 | > 0,60 | 0,319 | 0,162 | 0,114 | 0,146 | 0,143 |
+| limiar_1 | pov_rate | constante | 0,016 [0,005; 0,027] | 3,000 | 2,981 | 5,626 | 1,123 | 2,009 | -0,376 | 0,057 |
+| limiar_1 | pov_rate | linear até e=5 | 0,016 [0,005; 0,027] | 4,000 | 4,000 | 5,626 | 1,123 | 2,009 | -0,376 | 0,037 |
+| Onset original | ln_n_poor | constante | 0,040 [0,023; 0,057] | 0,450 | 0,422 | 0,372 | 0,152 | 0,133 | 0,164 | 0,250 |
+| Onset original | ln_n_poor | linear até e=5 | 0,040 [0,023; 0,057] | 0,600 | 0,563 | 0,372 | 0,152 | 0,133 | 0,164 | 0,168 |
+| Onset original | pov_rate | constante | 0,036 [0,020; 0,052] | 3,000 | 2,591 | 3,864 | 0,915 | 1,380 | -0,734 | 0,223 |
+| Onset original | pov_rate | linear até e=5 | 0,036 [0,020; 0,052] | 3,500 | 3,464 | 3,864 | 0,915 | 1,380 | -0,734 | 0,166 |
+
+![](../outputs/figures/ex4_power_curve_pov_rate.png)
+![](../outputs/figures/ex4_power_curve_ln_n_poor.png)
+
+### Leitura
+
+- **limiar_1 / ln_n_poor:** MDE ≈ 0,50 log-pontos (≈ 65% mais pobres) com efeito constante. O |ATT| estimado (0,146) está abaixo do MDE; o poder para um efeito desse tamanho seria 20%.
+- **limiar_1 / pov_rate:** MDE ≈ 2,98 p.p. com efeito constante. O |ATT| estimado (0,376) está abaixo do MDE; o poder para um efeito desse tamanho seria 6%.
+- **Onset original / ln_n_poor:** MDE ≈ 0,42 log-pontos (≈ 53% mais pobres) com efeito constante. O |ATT| estimado (0,164) está abaixo do MDE; o poder para um efeito desse tamanho seria 25%.
+- **Onset original / pov_rate:** MDE ≈ 2,59 p.p. com efeito constante. O |ATT| estimado (0,734) está abaixo do MDE; o poder para um efeito desse tamanho seria 22%.
+- **Tamanho do teste (δ = 0):** de 1,6% a 4,2%. Conservador em: limiar_1/pov_rate. 
+- **Efeito que cresce até e = 5:** o MDE (em termos do efeito de longo prazo) é 1,33–1,34 vezes o do efeito constante, porque os primeiros anos pós-onset carregam só parte do efeito. Em limiar_1/ln_n_poor (linear até e=5), o poder não chega a 80% dentro da grade: o MDE é maior que 0,60, com poder de 73% no topo da grade.
+- **Simulação × 2,8 × EP real** (efeito constante):
+  - *taxa*: MDE simulado / (2,8 × EP real) = 0,53–0,67; EP das réplicas / EP real = 0,56–0,66. As réplicas são **menos ruidosas** que os tratados reais, pois os falsos tratados vêm de nunca tratados de pobreza mais baixa e estável. Por isso o MDE simulado **subestima** o relevante, e 2,8 × EP real (3,86–5,63) é a referência mais prudente.
+  - *log nº pobres*: MDE simulado / (2,8 × EP real) = 1,14–1,57; EP das réplicas / EP real = 1,14–1,42. As réplicas são **mais ruidosas** que os tratados reais (logs de países com pobreza muito baixa oscilam muito). Aqui o MDE simulado é o mais prudente.
+- **Limitação:** o grupo de controle placebo é menor que o real (o pool cede os falsos tratados), o que tende a tornar o MDE simulado levemente conservador. Os falsos tratados também não reproduzem o perfil dos tratados reais (pobreza alta, choques correlacionados).
+
+**Conclusão.** Com o desenho atual, e contando os dois critérios (simulação e 2,8 × EP), só seriam detectados com 80% de poder efeitos de cerca de 2,6–5,6 p.p. na taxa de pobreza extrema e de 0,32–0,50 no log do número de pobres (+38% a +65% de pobres), para efeitos constantes. Efeitos que se acumulam ao longo do tempo exigem um δ de longo prazo ainda maior. Todos os |ATT| estimados estão abaixo desses limiares. Os resultados nulos dos exercícios anteriores são compatíveis tanto com efeito zero quanto com efeitos moderados, que o desenho não consegue distinguir: um efeito constante de 2 p.p. na taxa seria detectado em só 55–68% das réplicas. "Não significativo" aqui significa "não detectável", não "ausente".
