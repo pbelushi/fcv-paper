@@ -74,6 +74,20 @@ def main() -> None:
     unmatched.merge(names, on="gwno", how="left").to_csv(TABLES / "unmatched_codes.csv", index=False)
 
     acd = acd.merge(mapping[["gwno", "iso3"]], on="gwno", how="left").dropna(subset=["iso3"])
+
+    # Regra territorial (decisão do usuário, 2026-10-15): no ACD, a "localização" de um
+    # conflito interestatal inclui o território de todo governo participante (ex.: AUS no
+    # Iraque 2003). A partir de 1989, um conflito interestatal só conta para o país se houve
+    # mortes interestatais state-based no seu território (UCDP CY). Antes de 1989 não há
+    # dados de mortes e a localização do ACD é mantida.
+    cy_iso = cy.merge(mapping[["gwno", "iso3"]], left_on="country_id", right_on="gwno", how="left")
+    inter_d = cy_iso.groupby(["iso3", "year"]).sb_interstate_deaths_best.sum().rename("inter_deaths").reset_index()
+    acd = acd.merge(inter_d, on=["iso3", "year"], how="left")
+    drop = (acd.type_of_conflict == 2) & (acd.year >= 1989) & (acd.inter_deaths.fillna(0) == 0)
+    dropped = acd[drop][["conflict_id", "year", "iso3", "location"]]
+    dropped.to_csv(TABLES / "interstate_locations_dropped.csv", index=False)
+    acd = acd[~drop]
+
     acd["intra"] = acd.type_of_conflict.isin([3, 4])
     acd["inter"] = acd.type_of_conflict == 2
     acd["extra"] = acd.type_of_conflict == 1
@@ -111,6 +125,8 @@ def main() -> None:
 
     print(f"UCDP ACD v26.1: {acd.conflict_id.nunique()} conflitos, {acd.year.min()}-{last_year}")
     print(f"Linhas conflito-ano com múltiplas localizações (após explode): {n_multi}")
+    print(f"Localizações interestatais sem mortes no território (1989+) descartadas: {len(dropped)} "
+          f"({dropped.iso3.nunique()} países: {' '.join(sorted(dropped.iso3.unique()))})")
     print(f"Códigos GW: {len(mapping)} | manuais: {(mapping.metodo == 'manual').sum()} | não casados: {len(unmatched)}"
           f" -> outputs/tables/unmatched_codes.csv")
     if len(unmatched):
