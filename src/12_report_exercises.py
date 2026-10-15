@@ -168,8 +168,124 @@ def main() -> None:
     A("![](../outputs/figures/ex2_distributed_lags_pov_rate.png)")
     A("![](../outputs/figures/ex2_distributed_lags_ln_n_poor.png)\n")
 
+    ex3_section(A)
     (REPORT / "exercicios.md").write_text("\n".join(L), encoding="utf-8")
     print("report/exercicios.md gerado.")
+
+
+def ex3_section(A) -> None:
+    """Exercício 3 (src/13_exercise_region_decomp.py); pulado se os CSVs ex3_ ainda não existem."""
+    files = ["ex3_treated_contributions.csv", "ex3_region_att.csv", "ex3_leave_one_out.csv", "ex3_log_decomposition.csv"]
+    if not all((TABLES / x).exists() for x in files):
+        return
+    con, reg, loo, dec = (T(x) for x in files)
+    MIN_N = 5
+    A("\n## Exercício 3 — Decomposição regional do efeito no número de pobres\n")
+    A("*Gerado a partir de `outputs/tables/ex3_*.csv` (`src/13_exercise_region_decomp.py`). Especificação "
+      "`limiar_1` do exercício 1, estimador de referência: CS com regressão de resultado, nunca tratados, "
+      "covariáveis pré, bootstrap multiplicador por país.*\n")
+    A("**Hipótese.** O ATT positivo no log do número de pobres, com taxa ≈ 0, viria de tratados com pobreza inicial "
+      "muito baixa em Europa e Ásia Central (ECS), onde pequenas variações em p.p. viram grandes variações em log.\n")
+
+    # --- 1. contribuições
+    A("### 1. Contribuição de cada tratado (descritiva)\n")
+    A("Médias em g−5..g−1 (pré) e g..g+5 (pós). Δ = pós − pré; controle = média dos nunca tratados nos mesmos anos; "
+      "dif = tratado − controle. Logs indefinidos (zeros) aparecem como —.\n")
+    A(md_table(con[["iso3", "region_code", "g", "pov_rate_pre", "n_poor_pre", "d_pov_rate_dif", "d_ln_n_poor_dif",
+                    "d_ln_rate_dif"]].rename(columns={"pov_rate_pre": "pobreza pré (%)", "n_poor_pre": "nº pobres pré",
+                    "d_pov_rate_dif": "Δ taxa (p.p.) dif", "d_ln_n_poor_dif": "Δ ln nº pobres dif",
+                    "d_ln_rate_dif": "Δ ln taxa dif"}), {"pobreza pré (%)": 2, "nº pobres pré": 0}))
+    ecs, oth = con[con.ECS == 1], con[con.ECS == 0]
+    A(f"\nMediana da pobreza pré: ECS {f(ecs.pov_rate_pre.median())}% contra {f(oth.pov_rate_pre.median())}% nos demais. "
+      f"Mediana de Δ ln nº pobres (dif): ECS {f(ecs.d_ln_n_poor_dif.median(), 3)} contra {f(oth.d_ln_n_poor_dif.median(), 3)}; "
+      f"Δ taxa (dif): ECS {f(ecs.d_pov_rate_dif.median())} p.p. contra {f(oth.d_pov_rate_dif.median())} p.p.\n")
+
+    # --- 2. subamostras
+    A("### 2. ATT por subamostra de tratados (`ex3_region_att.csv`)\n")
+    A(md_table(reg[["outcome", "subamostra", "estimate", "se", "ci_low", "ci_high", "p_value", "n_treated", "n_controls"]]))
+    A(f"\nSubamostras com menos de {MIN_N} tratados: "
+      + (", ".join(f"{r.subamostra} / {r.outcome} (n = {r.n_treated})" for r in reg[reg.n_treated < MIN_N].itertuples())
+         or "nenhuma") + ". Nelas, reporto n e EP sem tirar conclusão de significância.\n")
+
+    # --- 3. leave-one-out
+    A("### 3. Leave-one-out (`ex3_leave_one_out.csv`)\n")
+    A("![](../outputs/figures/ex3_leave_one_out_ln_n_poor.png)")
+    A("![](../outputs/figures/ex3_leave_one_out_pov_rate.png)\n")
+    ll = loo[loo.outcome == "ln_n_poor"].sort_values("variacao")
+    n_ecs_ln = int(reg[(reg.outcome == "ln_n_poor") & reg.subamostra.str.startswith("(c)")].n_treated.iloc[0])
+    ll = ll[~(ll.estimate == ll.att_completo)]       # países fora da amostra de ln (zeros) não alteram o ATT
+    top = ll.head(n_ecs_ln)
+    A(md_table(ll[["retirado", "region_code", "estimate", "se", "variacao"]].rename(columns={"variacao": "Δ vs completo"})))
+    A(f"\nAs {n_ecs_ln} retiradas que mais reduzem o ATT de ln nº pobres ({n_ecs_ln} = nº de tratados ECS nessa "
+      f"amostra) são {', '.join(top.retirado)}; delas, {int(top.ECS.sum())} de ECS "
+      f"({', '.join(top[top.ECS == 1].retirado) or 'nenhuma'}). Retirar "
+      f"{', '.join(ll[(ll.ECS == 1) & (ll.variacao > 0)].retirado) or 'nenhum ECS'} **aumenta** o ATT.\n")
+
+    # --- 4. decomposição
+    A("### 4. Decomposição: ln(nº pobres) = ln(taxa) + ln(população) (`ex3_log_decomposition.csv`)\n")
+    ag = dec[dec.tipo == "agregado"].set_index("variavel")
+    tst = dec[dec.tipo == "teste_identidade"].iloc[0]
+    A(md_table(ag.reset_index()[["variavel", "estimate", "se", "ci_low", "ci_high", "p_value", "n_treated", "n_units"]]))
+    A(f"\n**Teste da identidade:** ATT(ln taxa) + ATT(ln pop) − ATT(ln nº pobres) = {tst.estimate:.2e}; máximo por "
+      f"célula ATT(g,t) = {tst.gap_max_celulas:.2e}; tolerância {tst.tolerancia:.0e} → "
+      f"**{'passou' if bool(tst.passou) else 'FALHOU'}**.\n")
+    pp = dec[dec.tipo == "pais_pp"]
+    A("Conversão para p.p. por país: pobreza pré × (exp(ATT) − 1), com o ATT de ln(taxa) agregado e o da coorte "
+      "do país, comparada à Δ taxa observada (tratado − controle):\n")
+    A(md_table(pp[["iso3", "region_code", "g", "pov_rate_pre", "pp_com_att_agregado", "att_ln_rate_coorte",
+                   "pp_com_att_coorte", "d_pov_rate_dif_observada"]].sort_values(["region_code", "iso3"])
+               .rename(columns={"pov_rate_pre": "pobreza pré (%)", "pp_com_att_agregado": "p.p. (ATT agregado)",
+                                "att_ln_rate_coorte": "ATT ln taxa (coorte)", "pp_com_att_coorte": "p.p. (ATT coorte)",
+                                "d_pov_rate_dif_observada": "Δ taxa observada (dif)"}), {"pobreza pré (%)": 2}))
+
+    # --- leitura objetiva
+    full = reg[(reg.outcome == "ln_n_poor") & reg.subamostra.str.startswith("(a)")].iloc[0]
+    noecs = reg[(reg.outcome == "ln_n_poor") & reg.subamostra.str.startswith("(b)")].iloc[0]
+    onlyecs = reg[(reg.outcome == "ln_n_poor") & reg.subamostra.str.startswith("(c)")].iloc[0]
+    c1 = bool(abs(noecs.estimate) < 0.5 * abs(full.estimate) and noecs.ci_low <= 0 <= noecs.ci_high
+              and onlyecs.estimate > full.estimate)
+    c2 = bool(top.ECS.sum() > n_ecs_ln / 2)
+    share_pop = abs(ag.loc["ln_pop", "estimate"]) / abs(ag.loc["ln_n_poor", "estimate"])
+    pp_ecs = pp[pp.ECS == 1].pp_com_att_coorte.abs().median()
+    pp_oth = pp[pp.ECS == 0].pp_com_att_coorte.abs().median()
+    c3 = bool(share_pop < 0.5 and pp_ecs < 1 and pp_ecs < pp_oth)
+    verdict = "confirma-se" if (c1 and c3) else ("confirma-se parcialmente" if (c1 or c3) else "não se confirma")
+    A("\n### Leitura\n")
+    A(f"Critérios definidos antes de ver os resultados (`src/12_report_exercises.py`): (i) sem ECS, o ATT de ln nº "
+      f"pobres cai para menos da metade e o IC contém zero, enquanto só ECS fica acima do total; (ii) as retiradas que "
+      f"mais reduzem o ATT no leave-one-out são de países ECS; (iii) o efeito está em ln(taxa), não em ln(população) "
+      f"(|ATT ln pop| < 50% do total), e o efeito implícito em p.p. nos ECS é pequeno (< 1 p.p.) e menor que nos demais.\n")
+    A(f"- (i) {'Sim' if c1 else 'Não'}: total {f(full.estimate, 3)} (n = {full.n_treated}); sem ECS {f(noecs.estimate, 3)} "
+      f"[{f(noecs.ci_low, 3)}; {f(noecs.ci_high, 3)}] (n = {noecs.n_treated}); só ECS {f(onlyecs.estimate, 3)} "
+      f"(EP {f(onlyecs.se, 3)}, n = {onlyecs.n_treated}).")
+    A(f"- (ii) {'Sim' if c2 else 'Não'}: {int(top.ECS.sum())} de {n_ecs_ln} maiores reduções vêm de ECS.")
+    A(f"- (iii) {'Sim' if c3 else 'Não'}: ATT ln taxa = {f(ag.loc['ln_rate', 'estimate'], 3)}, ATT ln pop = "
+      f"{f(ag.loc['ln_pop', 'estimate'], 3)} ({f(100 * share_pop, 0)}% do total); efeito implícito mediano "
+      f"(ATT da coorte) |{f(pp_ecs)}| p.p. nos ECS contra |{f(pp_oth)}| p.p. nos demais.")
+    A(f"\n**Veredito pela regra pré-definida: a hipótese {verdict}** (confirma se (i) e (iii) valem; parcialmente se só "
+      "um deles; (ii) é evidência auxiliar).\n")
+    regional = c1 or c2
+    A("**Leitura por componente.** A regra acima mistura duas perguntas. O critério (iii) só verifica se o efeito vem da "
+      "taxa e não da população; isso pode valer com ou sem concentração em ECS, então (iii) não discrimina a hipótese "
+      "regional. Separando:\n")
+    A(f"- *Componente regional* (o efeito em log vem dos ECS de pobreza inicial baixa?): "
+      + ("**confirma-se**" if (c1 and c2) else "**confirma-se em parte**" if regional else "**não se confirma**")
+      + f". Sem ECS o ATT {'cai' if noecs.estimate < full.estimate else 'sobe'} ({f(full.estimate, 3)} → "
+      f"{f(noecs.estimate, 3)}), e só ECS dá {f(onlyecs.estimate, 3)}.")
+    A(f"- *Componente de canal* (o efeito é na taxa, não na população): **{'confirma-se' if share_pop < 0.5 else 'não se confirma'}** "
+      f"(ATT ln pop = {f(100 * share_pop, 0)}% do total).")
+    A(f"- *O que os dados mostram:* nos tratados fora de ECS (pobreza pré mediana {f(oth.pov_rate_pre.median())}%), a "
+      f"pobreza cai em p.p. em relação aos controles (Δ taxa dif mediana {f(oth.d_pov_rate_dif.median())} p.p.), mas cai "
+      f"**proporcionalmente menos** (Δ ln taxa dif mediana {f(oth.d_ln_rate_dif.median(), 3)}). Os controles partem de "
+      f"pobreza mais baixa e têm quedas proporcionais maiores. O ATT positivo em log reflete esse contraste de taxas "
+      "proporcionais em países de pobreza alta (sobretudo África Subsaariana), não pequenas variações em países de "
+      "pobreza baixa. Isso também mostra que o efeito em log e o efeito em p.p. dependem de hipóteses de tendências "
+      "paralelas diferentes (em log ou em nível), que não podem valer ao mesmo tempo quando os níveis iniciais diferem tanto.")
+    cp = reg[reg.subamostra.str.startswith("(c')") & (reg.outcome == "ln_n_poor")]
+    if len(cp):
+        A(f"- A variante (c′), só ECS com controles ECS, dá {f(cp.estimate.iloc[0], 3)} (EP {f(cp.se.iloc[0], 3)}), mas "
+          f"com apenas {int(cp.n_controls.iloc[0])} controles com `ln_n_poor` completo. É frágil demais para sustentar "
+          "conclusões.\n")
 
 
 if __name__ == "__main__":

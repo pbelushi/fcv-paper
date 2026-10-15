@@ -248,3 +248,130 @@ Tratamento D_it = mortes em combate (state-based) no território por 100 mil hab
 
 ![](../outputs/figures/ex2_distributed_lags_pov_rate.png)
 ![](../outputs/figures/ex2_distributed_lags_ln_n_poor.png)
+
+
+## Exercício 3 — Decomposição regional do efeito no número de pobres
+
+*Gerado a partir de `outputs/tables/ex3_*.csv` (`src/13_exercise_region_decomp.py`). Especificação `limiar_1` do exercício 1, estimador de referência: CS com regressão de resultado, nunca tratados, covariáveis pré, bootstrap multiplicador por país.*
+
+**Hipótese.** O ATT positivo no log do número de pobres, com taxa ≈ 0, viria de tratados com pobreza inicial muito baixa em Europa e Ásia Central (ECS), onde pequenas variações em p.p. viram grandes variações em log.
+
+### 1. Contribuição de cada tratado (descritiva)
+
+Médias em g−5..g−1 (pré) e g..g+5 (pós). Δ = pós − pré; controle = média dos nunca tratados nos mesmos anos; dif = tratado − controle. Logs indefinidos (zeros) aparecem como —.
+
+| iso3 | region_code | g | pobreza pré (%) | nº pobres pré | Δ taxa (p.p.) dif | Δ ln nº pobres dif | Δ ln taxa dif |
+|---|---|---|---|---|---|---|---|
+| AZE | ECS | 2016 | 0,00 | 0 | 0,940 | — | — |
+| UKR | ECS | 2014 | 0,14 | 64.558 | 1,711 | 0,378 | 0,460 |
+| ARM | ECS | 2022 | 2,26 | 67.096 | -0,331 | -0,156 | -0,127 |
+| TUR | ECS | 2012 | 3,00 | 2.157.608 | 0,378 | -0,655 | -0,662 |
+| GEO | ECS | 2008 | 22,38 | 873.750 | 1,190 | 0,216 | 0,320 |
+| TJK | ECS | 2010 | 23,88 | 1.706.551 | -6,957 | -0,126 | -0,178 |
+| SYR | MEA | 2011 | 0,04 | 8.874 | 15,408 | — | — |
+| PHL | EAS | 2000 | 32,27 | 23.839.991 | -1,859 | 0,094 | 0,042 |
+| ETH | SSF | 2020 | 34,12 | 37.475.509 | 2,085 | 0,395 | 0,305 |
+| CMR | SSF | 2014 | 34,67 | 7.013.359 | -5,308 | 0,193 | 0,096 |
+| NGA | SSF | 2014 | 38,64 | 66.140.445 | -2,023 | 0,299 | 0,220 |
+| PAK | MEA | 2008 | 41,45 | 72.487.481 | -10,758 | 0,079 | 0,015 |
+| CIV | SSF | 2002 | 42,11 | 7.231.582 | 7,975 | 0,487 | 0,417 |
+| BFA | SSF | 2019 | 54,56 | 10.520.961 | -10,824 | 0,160 | 0,070 |
+| MLI | SSF | 2012 | 62,96 | 9.715.342 | -11,195 | 0,130 | 0,026 |
+| NER | SSF | 2015 | 65,60 | 11.677.343 | -3,962 | 0,359 | 0,220 |
+| MOZ | SSF | 2020 | 76,97 | 21.720.147 | 4,711 | 0,416 | 0,312 |
+| BDI | SSF | 2015 | 78,14 | 7.871.297 | -1,957 | 0,352 | 0,260 |
+
+Mediana da pobreza pré: ECS 2,63% contra 41,78% nos demais. Mediana de Δ ln nº pobres (dif): ECS -0,126 contra 0,299; Δ taxa (dif): ECS 0,66 p.p. contra -1,99 p.p.
+
+### 2. ATT por subamostra de tratados (`ex3_region_att.csv`)
+
+| outcome | subamostra | estimate | se | ci_low | ci_high | p_value | n_treated | n_controls |
+|---|---|---|---|---|---|---|---|---|
+| pov_rate | (a) todos os tratados | -0,376 | 2,009 | -4,314 | 3,562 | 0,852 | 18 | 68 |
+| pov_rate | (b) sem tratados ECS | -0,283 | 2,721 | -5,616 | 5,050 | 0,917 | 12 | 68 |
+| pov_rate | (c) só tratados ECS | -0,564 | 1,444 | -3,395 | 2,267 | 0,696 | 6 | 68 |
+| pov_rate | (c') só tratados ECS, controles nunca tratados ECS | 0,525 | 2,027 | -3,448 | 4,498 | 0,796 | 6 | 17 |
+| ln_n_poor | (a) todos os tratados | 0,146 | 0,114 | -0,077 | 0,370 | 0,199 | 16 | 56 |
+| ln_n_poor | (b) sem tratados ECS | 0,198 | 0,123 | -0,043 | 0,438 | 0,107 | 11 | 56 |
+| ln_n_poor | (c) só tratados ECS | 0,035 | 0,201 | -0,359 | 0,430 | 0,861 | 5 | 56 |
+| ln_n_poor | (c') só tratados ECS, controles nunca tratados ECS | 1,180 | 0,598 | 0,008 | 2,352 | 0,048 | 5 | 7 |
+| asinh_n_poor | (a) todos os tratados | 0,641 | 0,403 | -0,149 | 1,430 | 0,112 | 18 | 68 |
+| asinh_n_poor | (b) sem tratados ECS | 0,816 | 0,587 | -0,333 | 1,966 | 0,164 | 12 | 68 |
+| asinh_n_poor | (c) só tratados ECS | 0,286 | 0,295 | -0,292 | 0,865 | 0,332 | 6 | 68 |
+| asinh_n_poor | (c') só tratados ECS, controles nunca tratados ECS | 1,192 | 1,449 | -1,649 | 4,033 | 0,411 | 6 | 17 |
+
+Subamostras com menos de 5 tratados: nenhuma. Nelas, reporto n e EP sem tirar conclusão de significância.
+
+### 3. Leave-one-out (`ex3_leave_one_out.csv`)
+
+![](../outputs/figures/ex3_leave_one_out_ln_n_poor.png)
+![](../outputs/figures/ex3_leave_one_out_pov_rate.png)
+
+| retirado | region_code | estimate | se | Δ vs completo |
+|---|---|---|---|---|
+| UKR | ECS | 0,108 | 0,107 | -0,038 |
+| CIV | SSF | 0,125 | 0,114 | -0,022 |
+| NGA | SSF | 0,135 | 0,115 | -0,011 |
+| NER | SSF | 0,136 | 0,113 | -0,010 |
+| ETH | SSF | 0,139 | 0,106 | -0,008 |
+| BDI | SSF | 0,139 | 0,109 | -0,007 |
+| MOZ | SSF | 0,139 | 0,114 | -0,007 |
+| BFA | SSF | 0,143 | 0,108 | -0,003 |
+| CMR | SSF | 0,146 | 0,112 | -0,001 |
+| PHL | EAS | 0,147 | 0,118 | 0,001 |
+| TJK | ECS | 0,147 | 0,112 | 0,001 |
+| ARM | ECS | 0,153 | 0,112 | 0,007 |
+| MLI | SSF | 0,162 | 0,114 | 0,015 |
+| PAK | MEA | 0,162 | 0,110 | 0,016 |
+| GEO | ECS | 0,174 | 0,113 | 0,028 |
+| TUR | ECS | 0,187 | 0,109 | 0,040 |
+
+As 5 retiradas que mais reduzem o ATT de ln nº pobres (5 = nº de tratados ECS nessa amostra) são UKR, CIV, NGA, NER, ETH; delas, 1 de ECS (UKR). Retirar TJK, ARM, GEO, TUR **aumenta** o ATT.
+
+### 4. Decomposição: ln(nº pobres) = ln(taxa) + ln(população) (`ex3_log_decomposition.csv`)
+
+| variavel | estimate | se | ci_low | ci_high | p_value | n_treated | n_units |
+|---|---|---|---|---|---|---|---|
+| ln_n_poor | 0,146 | 0,114 | -0,077 | 0,370 | 0,199 | 16 | 72 |
+| ln_rate | 0,154 | 0,113 | -0,067 | 0,374 | 0,173 | 16 | 72 |
+| ln_pop | -0,007 | 0,022 | -0,050 | 0,036 | 0,741 | 16 | 72 |
+
+**Teste da identidade:** ATT(ln taxa) + ATT(ln pop) − ATT(ln nº pobres) = -2.78e-17; máximo por célula ATT(g,t) = 1.26e-13; tolerância 1e-06 → **passou**.
+
+Conversão para p.p. por país: pobreza pré × (exp(ATT) − 1), com o ATT de ln(taxa) agregado e o da coorte do país, comparada à Δ taxa observada (tratado − controle):
+
+| iso3 | region_code | g | pobreza pré (%) | p.p. (ATT agregado) | ATT ln taxa (coorte) | p.p. (ATT coorte) | Δ taxa observada (dif) |
+|---|---|---|---|---|---|---|---|
+| PHL | EAS | 2000 | 32,27 | 5,360 | 0,137 | 4,741 | -1,859 |
+| ARM | ECS | 2022 | 2,26 | 0,376 | -0,166 | -0,346 | -0,331 |
+| GEO | ECS | 2008 | 22,38 | 3,718 | -0,056 | -1,217 | 1,190 |
+| TJK | ECS | 2010 | 23,88 | 3,966 | 0,118 | 2,981 | -6,957 |
+| TUR | ECS | 2012 | 3,00 | 0,499 | -0,212 | -0,573 | 0,378 |
+| UKR | ECS | 2014 | 0,14 | 0,023 | 0,385 | 0,065 | 1,711 |
+| PAK | MEA | 2008 | 41,45 | 6,886 | -0,056 | -2,253 | -10,758 |
+| BDI | SSF | 2015 | 78,14 | 12,980 | 0,238 | 20,951 | -1,957 |
+| BFA | SSF | 2019 | 54,56 | 9,064 | 0,217 | 13,256 | -10,824 |
+| CIV | SSF | 2002 | 42,11 | 6,995 | 0,389 | 20,008 | 7,975 |
+| CMR | SSF | 2014 | 34,67 | 5,758 | 0,385 | 16,262 | -5,308 |
+| ETH | SSF | 2020 | 34,12 | 5,668 | 0,346 | 14,095 | 2,085 |
+| MLI | SSF | 2012 | 62,96 | 10,459 | -0,212 | -12,019 | -11,195 |
+| MOZ | SSF | 2020 | 76,97 | 12,785 | 0,346 | 31,796 | 4,711 |
+| NER | SSF | 2015 | 65,60 | 10,897 | 0,238 | 17,588 | -3,962 |
+| NGA | SSF | 2014 | 38,64 | 6,418 | 0,385 | 18,126 | -2,023 |
+
+### Leitura
+
+Critérios definidos antes de ver os resultados (`src/12_report_exercises.py`): (i) sem ECS, o ATT de ln nº pobres cai para menos da metade e o IC contém zero, enquanto só ECS fica acima do total; (ii) as retiradas que mais reduzem o ATT no leave-one-out são de países ECS; (iii) o efeito está em ln(taxa), não em ln(população) (|ATT ln pop| < 50% do total), e o efeito implícito em p.p. nos ECS é pequeno (< 1 p.p.) e menor que nos demais.
+
+- (i) Não: total 0,146 (n = 16); sem ECS 0,198 [-0,043; 0,438] (n = 11); só ECS 0,035 (EP 0,201, n = 5).
+- (ii) Não: 1 de 5 maiores reduções vêm de ECS.
+- (iii) Sim: ATT ln taxa = 0,154, ATT ln pop = -0,007 (5% do total); efeito implícito mediano (ATT da coorte) |0,57| p.p. nos ECS contra |16,26| p.p. nos demais.
+
+**Veredito pela regra pré-definida: a hipótese confirma-se parcialmente** (confirma se (i) e (iii) valem; parcialmente se só um deles; (ii) é evidência auxiliar).
+
+**Leitura por componente.** A regra acima mistura duas perguntas. O critério (iii) só verifica se o efeito vem da taxa e não da população; isso pode valer com ou sem concentração em ECS, então (iii) não discrimina a hipótese regional. Separando:
+
+- *Componente regional* (o efeito em log vem dos ECS de pobreza inicial baixa?): **não se confirma**. Sem ECS o ATT sobe (0,146 → 0,198), e só ECS dá 0,035.
+- *Componente de canal* (o efeito é na taxa, não na população): **confirma-se** (ATT ln pop = 5% do total).
+- *O que os dados mostram:* nos tratados fora de ECS (pobreza pré mediana 41,78%), a pobreza cai em p.p. em relação aos controles (Δ taxa dif mediana -1,99 p.p.), mas cai **proporcionalmente menos** (Δ ln taxa dif mediana 0,220). Os controles partem de pobreza mais baixa e têm quedas proporcionais maiores. O ATT positivo em log reflete esse contraste de taxas proporcionais em países de pobreza alta (sobretudo África Subsaariana), não pequenas variações em países de pobreza baixa. Isso também mostra que o efeito em log e o efeito em p.p. dependem de hipóteses de tendências paralelas diferentes (em log ou em nível), que não podem valer ao mesmo tempo quando os níveis iniciais diferem tanto.
+- A variante (c′), só ECS com controles ECS, dá 1,180 (EP 0,598), mas com apenas 7 controles com `ln_n_poor` completo. É frágil demais para sustentar conclusões.
