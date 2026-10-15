@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+# Bases brutas grandes ficam fora do git; integridade garantida pelo sha256 em data/raw/MANIFEST.csv
+data/raw/*
+!data/raw/MANIFEST.csv
+data/interim/
+data/processed/
