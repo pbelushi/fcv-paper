@@ -154,6 +154,23 @@ def test_against_differences_package():
               f"(dif. máx {diff:.1e}; razão mediana de EP {se_ratio:.3f})")
 
 
+def test_sdid():
+    """SDID recupera τ = 2 num modelo de fatores em que o tratado difere dos controles."""
+    import importlib
+    rob = importlib.import_module("08_robustness")
+    rng = np.random.default_rng(9)
+    T, T0, N0 = 25, 18, 60
+    f = np.cumsum(rng.normal(0, 1, T))                     # fator comum com carga heterogênea
+    load0 = rng.uniform(0, 2, N0)
+    Y0 = 3 + load0[:, None] * f[None, :] + rng.normal(0, 0.3, (N0, T))
+    Y1 = (5 + 1.5 * f + rng.normal(0, 0.3, T))[None, :]  # carga 1,5: TWFE simples seria viesado
+    Y1[:, T0:] += 2.0
+    tau, omega, lam = rob.sdid_estimate(Y0, Y1, T0)
+    assert abs(tau - 2.0) < 0.5, tau
+    assert abs(omega.sum() - 1) < 1e-8 and abs(lam.sum() - 1) < 1e-8
+    print(f"  ok SDID recupera τ = 2 em modelo de fatores (τ̂ = {tau:.3f})")
+
+
 if __name__ == "__main__":
     print("Validação de did_tools:")
     test_twfe_matches_pyfixest()
@@ -162,5 +179,6 @@ if __name__ == "__main__":
     test_cs_dr_covariate_trends()
     test_sun_abraham()
     test_against_differences_package()
+    test_sdid()
     test_cs_coverage()
     print("Todos os testes passaram.")
