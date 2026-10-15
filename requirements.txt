@@ -10,3 +10,4 @@ requests==2.34.2
 scipy==1.18.0
 statsmodels==0.14.6
 wbgapi==1.0.14
+truststore==0.10.4
