@@ -171,6 +171,35 @@ def test_sdid():
     print(f"  ok SDID recupera τ = 2 em modelo de fatores (τ̂ = {tau:.3f})")
 
 
+def test_waoss_continuous():
+    """WAOSS recupera a inclinação β com dose contínua não absorvente e seleção em nível (α_i)."""
+    import importlib
+    ex2 = importlib.import_module("11_exercise_continuous")
+    rng = np.random.default_rng(12)
+    N, T, beta = 200, 25, 0.8
+    rows = []
+    for i in range(N):
+        a = rng.normal()
+        conflict_prone = rng.random() < 0.3 + 0.3 * (a > 0)       # seleção em nível
+        D = 0.0
+        for t in range(T):
+            if conflict_prone and rng.random() < 0.25:
+                D = max(0.0, D + rng.choice([-1, 1]) * rng.exponential(2.0))
+            elif rng.random() < 0.2:
+                D = 0.0
+            y = a + 0.1 * t + beta * D + rng.normal(scale=0.3)
+            rows.append((i, 2000 + t, y, D))
+    df = pd.DataFrame(rows, columns=["iso3", "year", "y", "D"])
+    q = ex2._pairs(df, "y", "D")
+    r = ex2.waoss(q, eps=0.0)
+    pl = ex2.waoss(q, eps=0.0, placebo=True)
+    assert abs(r["all"] - beta) < 0.05, r
+    assert abs(r["up"] - beta) < 0.08 and abs(r["down"] - beta) < 0.08, r
+    assert abs(pl["all"]) < 0.05, pl
+    print(f"  ok WAOSS contínuo: θ = {r['all']:.3f} (β = {beta}); escalada {r['up']:.3f}, "
+          f"desescalada {r['down']:.3f}; placebo {pl['all']:.3f}")
+
+
 if __name__ == "__main__":
     print("Validação de did_tools:")
     test_twfe_matches_pyfixest()
@@ -180,5 +209,6 @@ if __name__ == "__main__":
     test_sun_abraham()
     test_against_differences_package()
     test_sdid()
+    test_waoss_continuous()
     test_cs_coverage()
     print("Todos os testes passaram.")

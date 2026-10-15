@@ -10,6 +10,8 @@
 - **Dados faltantes:** o conflito reduz a probabilidade de haver pesquisa domiciliar em 8,2 p.p. (EP 4,1; p = 0,045). Nos anos de conflito, boa parte da série de pobreza é interpolada ou extrapolada por modelo (§3).
 - **Conclusão:** com 33 episódios (3 com ≥ 1.000 mortes no 1º ano), os dados **não permitem rejeitar efeito nulo** do onset de conflito sobre a pobreza extrema (taxa e número) nos 10 anos seguintes na especificação principal. Os intervalos de confiança são largos e a sensibilidade a violações de tendências paralelas é alta (§5).
 
+Exercícios adicionais (tratamento restrito por intensidade e renda; tratamento contínuo não absorvente): ver [`exercicios.md`](exercicios.md).
+
 ## 1. Fontes e versões
 
 Copiado de `data/raw/MANIFEST.csv` (hash SHA-256 completo no arquivo).

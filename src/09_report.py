@@ -125,6 +125,9 @@ def main() -> None:
          if zero_all else "ao menos uma variável de resultado tem IC 95% que exclui zero na especificação principal (ver §4). ")
       + "Os intervalos de confiança são largos e a sensibilidade a violações de tendências paralelas é alta (§5).\n")
 
+    A("Exercícios adicionais (tratamento restrito por intensidade e renda; tratamento contínuo não absorvente): "
+      "ver [`exercicios.md`](exercicios.md).\n")
+
     # ------------------------------------------------------------------ 1. fontes
     A("## 1. Fontes e versões\n")
     A("Copiado de `data/raw/MANIFEST.csv` (hash SHA-256 completo no arquivo).\n")
