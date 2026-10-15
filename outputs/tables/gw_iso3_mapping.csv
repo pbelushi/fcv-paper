@@ -1,0 +1,202 @@
+gwno,iso3,metodo,nome
+2,USA,country_converter,United States of America
+20,CAN,country_converter,Canada
+31,BHS,country_converter,Bahamas
+40,CUB,country_converter,Cuba
+41,HTI,country_converter,Haiti
+42,DOM,country_converter,Dominican Republic
+51,JAM,country_converter,Jamaica
+52,TTO,country_converter,Trinidad and Tobago
+53,BRB,country_converter,Barbados
+54,DMA,country_converter,Dominica
+55,GRD,country_converter,"Grenada, United States of America"
+56,LCA,country_converter,Saint Lucia
+57,VCT,country_converter,Saint Vincent and the Grenadines
+58,ATG,country_converter,Antigua & Barbuda
+60,KNA,country_converter,Saint Kitts and Nevis
+70,MEX,country_converter,Mexico
+80,BLZ,country_converter,Belize
+90,GTM,country_converter,Guatemala
+91,HND,country_converter,"Honduras, Nicaragua"
+92,SLV,country_converter,"El Salvador, Honduras"
+93,NIC,country_converter,"Honduras, Nicaragua"
+94,CRI,country_converter,Costa Rica
+95,PAN,country_converter,Panama
+100,COL,country_converter,Colombia
+101,VEN,country_converter,Venezuela
+110,GUY,country_converter,Guyana
+115,SUR,country_converter,Suriname
+130,ECU,country_converter,"Ecuador, Peru"
+135,PER,country_converter,Peru
+140,BRA,country_converter,Brazil
+145,BOL,country_converter,Bolivia
+150,PRY,country_converter,Paraguay
+155,CHL,country_converter,Chile
+160,ARG,country_converter,Argentina
+165,URY,country_converter,Uruguay
+200,GBR,country_converter,"Albania, United Kingdom"
+205,IRL,country_converter,Ireland
+210,NLD,country_converter,"Indonesia, Netherlands"
+211,BEL,country_converter,Belgium
+212,LUX,country_converter,Luxembourg
+220,FRA,country_converter,"France, Thailand"
+221,MCO,country_converter,Monaco
+223,LIE,country_converter,Liechtenstein
+225,CHE,country_converter,Switzerland
+230,ESP,country_converter,Spain
+232,AND,country_converter,Andorra
+235,PRT,country_converter,Portugal
+260,DEU,manual,Germany
+265,DEU,manual,German Democratic Republic
+290,POL,country_converter,Poland
+305,AUT,country_converter,Austria
+310,HUN,country_converter,"Hungary, Russia (Soviet Union)"
+315,CZE,manual,Czechoslovakia
+316,CZE,manual,Czech Republic
+317,SVK,country_converter,Slovakia
+325,ITA,country_converter,Italy
+327,,country_converter,Vatican City State
+331,SMR,country_converter,San Marino
+338,MLT,country_converter,Malta
+339,ALB,country_converter,"Albania, United Kingdom"
+341,MNE,manual,Montenegro
+343,MKD,country_converter,North Macedonia
+344,HRV,country_converter,Croatia
+345,SRB,manual,Serbia (Yugoslavia)
+346,BIH,country_converter,Bosnia-Herzegovina
+347,XKX,manual,Kosovo
+349,SVN,country_converter,Slovenia
+350,GRC,country_converter,Greece
+352,CYP,country_converter,Cyprus
+355,BGR,country_converter,Bulgaria
+359,MDA,country_converter,Moldova
+360,ROU,country_converter,Romania
+365,RUS,manual,Russia (Soviet Union)
+366,EST,country_converter,Estonia
+367,LVA,country_converter,Latvia
+368,LTU,country_converter,Lithuania
+369,UKR,country_converter,Ukraine
+370,BLR,country_converter,Belarus
+371,ARM,country_converter,Armenia
+372,GEO,country_converter,Georgia
+373,AZE,country_converter,Azerbaijan
+375,FIN,country_converter,Finland
+380,SWE,country_converter,Sweden
+385,NOR,country_converter,Norway
+390,DNK,country_converter,Denmark
+395,ISL,country_converter,Iceland
+402,CPV,country_converter,Cape Verde
+403,STP,country_converter,Sao Tome and Principe
+404,GNB,country_converter,Guinea-Bissau
+411,GNQ,country_converter,Equatorial Guinea
+420,GMB,country_converter,Gambia
+432,MLI,country_converter,"Burkina Faso, Mali"
+433,SEN,country_converter,Senegal
+434,BEN,country_converter,Benin
+435,MRT,country_converter,"Mauritania, Morocco"
+436,NER,country_converter,Niger
+437,CIV,country_converter,Ivory Coast
+438,GIN,country_converter,Guinea
+439,BFA,country_converter,"Burkina Faso, Mali"
+450,LBR,country_converter,Liberia
+451,SLE,country_converter,Sierra Leone
+452,GHA,country_converter,Ghana
+461,TGO,country_converter,Togo
+471,CMR,country_converter,Cameroon
+475,NGA,country_converter,Nigeria
+481,GAB,country_converter,Gabon
+482,CAF,country_converter,Central African Republic
+483,TCD,country_converter,Chad
+484,COG,country_converter,Congo
+490,COD,country_converter,DR Congo (Zaire)
+500,UGA,country_converter,Uganda
+501,KEN,country_converter,Kenya
+510,TZA,country_converter,"Tanzania, Uganda"
+516,BDI,country_converter,Burundi
+517,RWA,country_converter,Rwanda
+520,SOM,country_converter,"Ethiopia, Somalia"
+522,DJI,country_converter,Djibouti
+530,ETH,manual,Ethiopia
+531,ERI,manual,Eritrea
+540,AGO,country_converter,Angola
+541,MOZ,country_converter,Mozambique
+551,ZMB,country_converter,Zambia
+552,ZWE,country_converter,Zimbabwe (Rhodesia)
+553,MWI,country_converter,Malawi
+560,ZAF,country_converter,South Africa
+565,NAM,country_converter,Namibia
+570,LSO,country_converter,Lesotho
+571,BWA,country_converter,Botswana
+572,SWZ,country_converter,Kingdom of eSwatini (Swaziland)
+580,MDG,country_converter,Madagascar (Malagasy)
+581,COM,country_converter,Comoros
+590,MUS,country_converter,Mauritius
+591,SYC,country_converter,Seychelles
+600,MAR,country_converter,Morocco
+615,DZA,country_converter,Algeria
+616,TUN,country_converter,Tunisia
+620,LBY,country_converter,"Chad, Libya"
+625,SDN,manual,Sudan
+626,SSD,manual,South Sudan
+630,IRN,country_converter,Iran
+640,TUR,country_converter,"Cyprus, Turkey"
+645,IRQ,country_converter,"Egypt, Iraq, Israel, Jordan, Lebanon, Syria"
+651,EGY,country_converter,"Egypt, Iraq, Israel, Jordan, Lebanon, Syria"
+652,SYR,country_converter,"Egypt, Iraq, Israel, Jordan, Lebanon, Syria"
+660,LBN,country_converter,"Egypt, Iraq, Israel, Jordan, Lebanon, Syria"
+663,JOR,country_converter,"Egypt, Iraq, Israel, Jordan, Lebanon, Syria"
+666,ISR,country_converter,Israel
+670,SAU,country_converter,Saudi Arabia
+678,YEM,manual,Yemen (North Yemen)
+680,YEM,manual,South Yemen
+690,KWT,country_converter,"Iraq, Kuwait"
+692,BHR,country_converter,Bahrain
+694,QAT,country_converter,Qatar
+696,ARE,country_converter,United Arab Emirates
+698,OMN,country_converter,Oman
+700,AFG,country_converter,Afghanistan
+701,TKM,country_converter,Turkmenistan
+702,TJK,country_converter,Tajikistan
+703,KGZ,country_converter,"Kyrgyzstan, Tajikistan"
+704,UZB,country_converter,Uzbekistan
+705,KAZ,country_converter,Kazakhstan
+710,CHN,country_converter,China
+712,MNG,country_converter,Mongolia
+713,TWN,manual,"China, Taiwan"
+731,PRK,country_converter,"North Korea, South Korea"
+732,KOR,country_converter,"North Korea, South Korea"
+740,JPN,country_converter,Japan
+750,IND,country_converter,"India, Pakistan"
+751,IND,manual,"Hyderabad, India"
+760,BTN,country_converter,Bhutan
+770,PAK,country_converter,"India, Pakistan"
+771,BGD,country_converter,Bangladesh
+775,MMR,country_converter,Myanmar (Burma)
+780,LKA,country_converter,Sri Lanka
+781,MDV,country_converter,Maldives
+790,NPL,country_converter,Nepal
+800,THA,country_converter,"France, Thailand"
+811,KHM,country_converter,Cambodia (Kampuchea)
+812,LAO,country_converter,Laos
+816,VNM,manual,Vietnam (North Vietnam)
+817,VNM,manual,South Vietnam
+820,MYS,country_converter,Malaysia
+830,SGP,country_converter,Singapore
+835,BRN,country_converter,Brunei
+840,PHL,country_converter,Philippines
+850,IDN,country_converter,Indonesia
+860,TLS,manual,East Timor
+900,AUS,country_converter,"Australia, Iraq, United Kingdom, United States of America"
+910,PNG,country_converter,Papua New Guinea
+920,NZL,country_converter,New Zealand
+935,VUT,country_converter,Vanuatu
+940,SLB,country_converter,Solomon Islands
+950,FJI,country_converter,Fiji
+970,KIR,country_converter,Kiribati
+971,NRU,country_converter,Nauru
+972,TON,country_converter,Tonga
+973,TUV,country_converter,Tuvalu
+983,MHL,country_converter,Marshall Islands
+986,PLW,country_converter,Palau
+987,FSM,country_converter,Federated States of Micronesia
+990,WSM,country_converter,Samoa (Western Samoa)
