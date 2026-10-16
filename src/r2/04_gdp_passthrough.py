@@ -59,6 +59,7 @@ def main() -> None:
     r = C.cs(d, "ln_gdppc")["r"]
     dyn = r["dyn"]["table"].set_index("term").estimate
     grp = r["group"]["table"].set_index("term").estimate
+    dyn_unc = C.cs(d, "ln_gdppc", method="unc")["r"]["dyn"]["table"].set_index("term").estimate
     el = eligible(p)
     version = [v for v in pd.read_csv(RAW / "MANIFEST.csv").versao if "PROD" in str(v)][0]
     cache_path = RAW / "pip_passthrough_queries.json"
@@ -71,7 +72,8 @@ def main() -> None:
         wt = base[0]["welfare_type"]
         h0 = np.mean([x["headcount"] for x in base if x["welfare_type"] == wt])
         for variant, xs in [("ATT agregado", {e: 1 - np.exp(dyn[e]) for e in range(0, 6)}),
-                            ("ATT da coorte", {e: 1 - np.exp(grp.get(t.g, np.nan)) for e in range(0, 6)})]:
+                            ("ATT da coorte", {e: 1 - np.exp(grp.get(t.g, np.nan)) for e in range(0, 6)}),
+                            ("ATT agregado sem covariáveis", {e: 1 - np.exp(dyn_unc[e]) for e in range(0, 6)})]:
             for e, x in xs.items():
                 if not np.isfinite(x):
                     continue
@@ -92,6 +94,7 @@ def main() -> None:
     by_e.to_csv(TAB / "passthrough_by_e.csv", index=False)
     print(f"Elegíveis: {len(el)} tratados com ≥ {MIN_PRE_SURVEYS} pesquisas antes do onset; consultas à API: {len(cache)}")
     print("ATT dinâmico ln PIB pc (e = 0..5):", {e: round(float(dyn[e]), 4) for e in range(6)})
+    print("   sem covariáveis:", {e: round(float(dyn_unc[e]), 4) for e in range(6)})
     print(by_e.round(3).to_string(index=False))
     print(agg.round(3).to_string(index=False))
     _ = manifest_version
