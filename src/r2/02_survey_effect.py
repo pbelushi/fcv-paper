@@ -40,12 +40,25 @@ def main() -> None:
                 C.plot_es(r["r"]["dyn"]["table"], f"{lab} — CS REG", FIG / f"q2_event_study_{y}")
             print(f"  {y:19s} {name:36s} ATT = {r['row']['estimate']:7.3f} (EP {r['row']['se']:.3f}); "
                   f"n_trat {r['row']['n_treated']}; pré-tend. p = {r['row']['pretrend_p']:.3f}")
+        # estimadores que usam todo o período pré como base
+        b = C.bjs(d, y)
+        dyn.append(b.pop("dyn").assign(outcome=y, estimator="BJS/did2s"))
+        rows.append({"outcome": y, "estimator": "BJS/did2s (imputação, base = todo o pré)", **b})
+        s = C.stacked_means(d, y)
+        rows.append({"outcome": y, "estimator": "DiD empilhada de médias (g−5..g−1 × g..g+5)", **s})
+        for var, lab2 in [("g_high_pw5", "só alta intensidade"), ("g_main_pw10", "janela de paz 10")]:
+            dv = C.onset_sample(p[p.in_pip == 1], var)
+            rows.append({"outcome": y, "estimator": f"DiD empilhada de médias — {lab2}", **C.stacked_means(dv, y)})
+            rows.append({"outcome": y, "estimator": f"CS REG, nunca tratados — {lab2}", **C.cs(dv, y)["row"]})
+        print(f"  {y:19s} BJS ATT = {b['estimate']:.3f} (EP {b['se']:.3f}); empilhada = {s['estimate']:.3f} (EP {s['se']:.3f})")
         # heterogeneidade (estimador de referência)
         cp = tr.cpia_pre.dropna()
         groups = {"missão de paz pré-onset": tr.pko_pre == 1, "sem missão de paz pré-onset": tr.pko_pre != 1,
                   "CPIA pré ≤ mediana (IDA)": tr.cpia_pre <= cp.median(), "CPIA pré > mediana (IDA)": tr.cpia_pre > cp.median(),
                   "África Subsaariana": tr.region_code == "SSF", "fora da África Subsaariana": tr.region_code != "SSF",
-                  "renda baixa pré": tr.income_group_pre == "L", "renda média/alta pré": tr.income_group_pre.isin(["LM", "UM", "H"])}
+                  "renda baixa pré": tr.income_group_pre == "L", "renda média/alta pré": tr.income_group_pre.isin(["LM", "UM", "H"]),
+                  "trajetória FCS crônica/entrada": tr.trajetoria.isin(["cronico", "entrada"]),
+                  "nunca FCS": tr.trajetoria == "nunca"}
         for g, m in groups.items():
             isos = set(tr.index[m.fillna(False)])
             sub = d[(d.treated == 0) | d.iso3.isin(isos)]
@@ -54,10 +67,11 @@ def main() -> None:
             except Exception as e:  # noqa: BLE001
                 print(f"    {g}: falhou ({e})")
                 continue
-            het.append({"outcome": y, "grupo": g, **r["row"]})
+            het.append({"outcome": y, "grupo": g, "estimador": "CS REG", **r["row"]})
+            het.append({"outcome": y, "grupo": g, "estimador": "DiD empilhada", **C.stacked_means(sub, y, reps=499)})
     res = pd.DataFrame(rows)
     hetd = pd.DataFrame(het)
-    hetd["p_holm"] = C.holm(hetd.p_value)
+    hetd["p_holm"] = hetd.groupby("estimador").p_value.transform(C.holm)
     # WAOSS contínuo (todos os países do PIP, inclusive sempre tratados)
     w = []
     for y in OUT:

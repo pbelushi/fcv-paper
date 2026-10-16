@@ -67,5 +67,45 @@ def waoss(p: pd.DataFrame, y: str, D: str = "t3_asinh", eps: float = 0.1) -> dic
     return out
 
 
+def stacked_means(d: pd.DataFrame, y: str, pre=(-5, -1), post=(0, 5), reps: int = 999, seed: int = 3) -> dict:
+    """DiD empilhada de médias: para cada tratado, [média pós − média pré] menos o mesmo para a média dos
+    controles nos mesmos anos-calendário; média simples entre tratados. Usa todo o período pré como base
+    (robusto a oscilações de um único ano-base em resultados esporádicos, como 'há pesquisa no ano').
+    EP por bootstrap de países (tratados e controles reamostrados separadamente)."""
+    dd = d.dropna(subset=[y])
+    W = dd.pivot_table(index="iso3", columns="year", values=y)
+    G = dd.drop_duplicates("iso3").set_index("iso3").g.reindex(W.index)
+    ctrl = W[G == 0]
+    trs = [(i, int(g)) for i, g in G[G > 0].items()]
+
+    def one(tr_list, C):
+        cm = C.mean(axis=0)
+        vals = []
+        for i, g in tr_list:
+            pr = [y_ for y_ in range(g + pre[0], g + pre[1] + 1) if y_ in W.columns]
+            po = [y_ for y_ in range(g + post[0], g + post[1] + 1) if y_ in W.columns]
+            a, b = W.loc[i, pr], W.loc[i, po]
+            if a.notna().sum() >= 2 and b.notna().sum() >= 2:
+                vals.append((b.mean() - a.mean()) - (cm[po].mean() - cm[pr].mean()))
+        return float(np.mean(vals)) if vals else np.nan, len(vals)
+    est_, n = one(trs, ctrl)
+    rng = np.random.default_rng(seed)
+    boots = []
+    for _ in range(reps):
+        tb = [trs[k] for k in rng.integers(0, len(trs), len(trs))]
+        cb = ctrl.iloc[rng.integers(0, len(ctrl), len(ctrl))]
+        boots.append(one(tb, cb)[0])
+    se = float(np.nanstd(boots, ddof=1))
+    return {"estimate": est_, "se": se, "ci_low": est_ - 1.96 * se, "ci_high": est_ + 1.96 * se,
+            "p_value": float(2 * stats.norm.sf(abs(est_ / se))) if se > 0 else np.nan, "n_treated": n,
+            "n_units": n + len(ctrl)}
+
+
+def bjs(d: pd.DataFrame, y: str) -> dict:
+    o, dyn = est.run_did2s(d, y)
+    return {**o, "n_treated": int(d.dropna(subset=[y]).query("treated == 1").iso3.nunique()),
+            "n_units": int(d.dropna(subset=[y]).iso3.nunique()), "dyn": dyn}
+
+
 def plot_es(tab: pd.DataFrame, title: str, path, color=None):
     est.plot_es(tab, title, path, band=True, color=color or ps.TREATED)
