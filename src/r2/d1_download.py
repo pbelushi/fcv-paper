@@ -80,8 +80,8 @@ def download_wb_source(source_id: int, name: str, label: str):
             recs += js[1]
             page += 1
     df = pd.json_normalize(recs).rename(columns={"indicator.id": "indicator", "indicator.value": "indicator_name",
-                                                 "countryiso3code": "iso3", "country.value": "country_name", "date": "year"})
-    out = df[["indicator", "indicator_name", "iso3", "country_name", "year", "value"]]
+                                                 "countryiso3code": "iso3", "country.id": "country_id2", "country.value": "country_name", "date": "year"})
+    out = df[["indicator", "indicator_name", "iso3", "country_id2", "country_name", "year", "value"]]
     save_raw(name, out.to_csv(index=False).encode(), label, f"{base}/country/all/indicator/{{code}}?source={source_id}",
              f"lastupdated={last}; {len(codes)} indicadores", WB_TERMS)
 
@@ -135,6 +135,8 @@ def download_mpi():
 # ------------------------------------------------------------------ deslocamento interno e operações de paz
 IDMC = ("https://data.humdata.org/dataset/0b1c4dc1-6ae5-4e2d-8e32-2111d0e10697/resource/761feae0-f812-4f0f-8e38-54b5526baf85/"
         "download/idmc_internal_displacement_conflict-violence_disasters-39.xlsx")
+IPI = ("https://data.humdata.org/dataset/6fc8e7be-63da-4660-8557-b1c5d3501805/resource/073c9c47-e8e3-494e-9028-2f8e6c51bd91/"
+       "download/mission-level-data.csv")
 DPO = {"dpo_operationslist.pdf": "https://peacekeeping.un.org/sites/default/files/operationslist.pdf",
        "dpo_past_operations.html": "https://peacekeeping.un.org/en/past-peacekeeping-operations",
        "dpo_where_we_operate.html": "https://peacekeeping.un.org/en/where-we-operate"}
@@ -146,6 +148,9 @@ def download_idmc_dpo():
     for name, url in DPO.items():
         save_raw(name, fetch(url).content, "UN-DPO", url, f"baixado {pd.Timestamp.today().date()}",
                  "United Nations — conteúdo público do site de peacekeeping")
+    # IPI Peacekeeping Database (HDX, CC0): missão × mês × país anfitrião, 1990-11 a 2017-04
+    save_raw("ipi_pko_mission_level.csv", fetch(IPI).content, "IPI-PKO", IPI, "HDX (dados até 2017-04)",
+             "Public Domain / CC0 (HDX)")
 
 
 # ------------------------------------------------------------------ luminosidade (opcional)
