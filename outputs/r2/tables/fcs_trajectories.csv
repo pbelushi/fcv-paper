@@ -46,7 +46,7 @@ SDN,cronico,cronico,cronico,1.0
 SLB,cronico,cronico,cronico,1.0
 SLE,intermitente,intermitente,intermitente,0.4090909090909091
 SOM,cronico,cronico,cronico,1.0
-SSD,entrada,entrada,entrada,0.6818181818181818
+SSD,cronico,cronico,cronico,0.9375
 STP,intermitente,intermitente,intermitente,0.36363636363636365
 SYR,entrada,entrada,entrada,0.6818181818181818
 TCD,cronico,cronico,cronico,0.9545454545454546

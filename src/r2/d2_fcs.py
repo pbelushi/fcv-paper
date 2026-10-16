@@ -168,18 +168,29 @@ def thresholds() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+EXIST_START_FY = {"SSD": 2012}   # Estados criados no período: parcela calculada só nos FY de existência
+
+
 def trajectories(long: pd.DataFrame, share: float) -> pd.Series:
     fys = sorted(long.fy.unique())
     w = long.pivot_table(index="iso3", columns="fy", values="fcs_any", aggfunc="max").reindex(columns=fys).fillna(0)
-    frac = w.mean(axis=1)
-    first, last = w.iloc[:, : len(fys) // 2].max(axis=1), w.iloc[:, len(fys) // 2:].max(axis=1)
-    early, late = w.iloc[:, : len(fys) // 2].mean(axis=1), w.iloc[:, len(fys) // 2:].mean(axis=1)
-    t = pd.Series("intermitente", index=w.index)
-    t[frac >= share] = "cronico"
-    t[(frac < share) & (late > early) & (w.iloc[:, -3:].max(axis=1) == 1) & (w.iloc[:, :3].max(axis=1) == 0)] = "entrada"
-    t[(frac < share) & (early > late) & (w.iloc[:, :3].max(axis=1) == 1) & (w.iloc[:, -3:].max(axis=1) == 0)] = "saida"
-    _ = first, last
-    return t
+    for iso, fy0 in EXIST_START_FY.items():
+        if iso in w.index:
+            w.loc[iso, [f for f in fys if f < fy0]] = np.nan
+    out = {}
+    for iso, row in w.iterrows():
+        r = row.dropna().to_numpy()
+        half = len(r) // 2
+        frac, early, late = r.mean(), r[:half].mean(), r[half:].mean()
+        if frac >= share:
+            out[iso] = "cronico"
+        elif late > early and r[-3:].max() == 1 and r[:3].max() == 0:
+            out[iso] = "entrada"
+        elif early > late and r[:3].max() == 1 and r[-3:].max() == 0:
+            out[iso] = "saida"
+        else:
+            out[iso] = "intermitente"
+    return pd.Series(out)
 
 
 def main() -> None:
@@ -204,8 +215,9 @@ def main() -> None:
 
     traj = pd.DataFrame({f"traj_{int(s * 100)}": trajectories(long[long.fcs_any == 1], s)
                          for s in [CHRONIC_SHARE, *CHRONIC_ROBUST]})
-    traj["share_anos_fcs"] = long[long.fcs_any == 1].groupby("iso3").fy.nunique() / len(fys)
-    traj = traj.rename(columns={f"traj_{int(CHRONIC_SHARE * 100)}": "trajetoria"}).reset_index()
+    n_fy = pd.Series(len(fys), index=traj.index) - pd.Series({k: v - fys[0] for k, v in EXIST_START_FY.items()}).reindex(traj.index).fillna(0)
+    traj["share_anos_fcs"] = long[long.fcs_any == 1].groupby("iso3").fy.nunique() / n_fy
+    traj = traj.rename(columns={f"traj_{int(CHRONIC_SHARE * 100)}": "trajetoria"}).rename_axis("iso3").reset_index()
     traj.to_csv(TAB / "fcs_trajectories.csv", index=False)
     long.merge(traj[["iso3", "trajetoria"]], on="iso3", how="left").to_parquet(INTERIM / "r2_fcs.parquet", index=False)
 
@@ -216,6 +228,7 @@ def main() -> None:
         ("categorias", "conflito × institucional só a partir de FY20; antes, só fcs_any"),
         ("FY27", "fcs_conflict = Public FCV List; fcs_institutional = Institutional Fragility List"),
         ("ano-calendário", "year = FY − 1"),
+        ("existência", "SSD avaliado só a partir de FY12 (independência em julho de 2011); decisão do usuário 2026-10-16"),
         ("trajetória", f"crônico: ≥ {CHRONIC_SHARE:.0%} dos FY06–FY27 na lista; entrada: fora nos 3 primeiros e dentro em algum dos 3 "
                        "últimos, mais anos na 2ª metade; saída: o inverso; demais com algum ano = intermitente; nunca = sem anos"),
     ], columns=["regra", "decisao"]).to_csv(TAB / "fcs_decisions.csv", index=False)
