@@ -1,0 +1,789 @@
+fy,iso3,nome_pdf,fcs_any,fcs_marginal,fcs_conflict,fcs_institutional,intensidade,year
+2006,AFG,Afghanistan,1,0,,,,2005
+2006,AGO,Angola,1,0,,,,2005
+2006,BDI,Burundi,1,0,,,,2005
+2006,CAF,Central African Rep.,1,0,,,,2005
+2006,CIV,Cote D'Ivoire,1,0,,,,2005
+2006,COD,"Congo, Dem. Rep.",1,0,,,,2005
+2006,COG,"Congo, Rep",1,0,,,,2005
+2006,COM,Comoros,1,0,,,,2005
+2006,DJI,Djibouti,1,0,,,,2005
+2006,ERI,Eritrea,1,0,,,,2005
+2006,GIN,Guinea,1,0,,,,2005
+2006,GMB,"Gambia, The",0,1,,,,2005
+2006,GNB,Guinea - Bissau,1,0,,,,2005
+2006,HTI,Haiti,1,0,,,,2005
+2006,KHM,Cambodia,1,0,,,,2005
+2006,LAO,"Lao, PDR",1,0,,,,2005
+2006,LBR,Liberia,1,0,,,,2005
+2006,MMR,Myanmar,1,0,,,,2005
+2006,NGA,Nigeria,1,0,,,,2005
+2006,PNG,Papua New Guinea,0,1,,,,2005
+2006,PSE,West Bank and Gaza,1,0,,,,2005
+2006,SDN,Sudan,1,0,,,,2005
+2006,SLB,Solomon Islands,1,0,,,,2005
+2006,SLE,Sierra Leone,0,1,,,,2005
+2006,SOM,Somalia,1,0,,,,2005
+2006,STP,Sao Tome and Pr,0,1,,,,2005
+2006,TCD,Chad,0,1,,,,2005
+2006,TGO,Togo,1,0,,,,2005
+2006,TJK,Tajikistan,0,1,,,,2005
+2006,TLS,Timor Leste,1,0,,,,2005
+2006,TON,Tonga,1,0,,,,2005
+2006,UZB,Uzbekistan,0,1,,,,2005
+2006,VUT,Vanuatu,1,0,,,,2005
+2006,XKX,Kosovo,1,0,,,,2005
+2006,ZWE,Zimbabwe,1,0,,,,2005
+2007,AFG,Afghanistan,1,0,,,,2006
+2007,AGO,Angola,1,0,,,,2006
+2007,BDI,Burundi,1,0,,,,2006
+2007,CAF,Central African Rep.,1,0,,,,2006
+2007,CIV,Cote d'Ivoire,1,0,,,,2006
+2007,COD,"Congo, Dem. Rep.",1,0,,,,2006
+2007,COG,"Congo, Rep",1,0,,,,2006
+2007,COM,Comoros,1,0,,,,2006
+2007,DJI,Djibouti,0,1,,,,2006
+2007,ERI,Eritrea,1,0,,,,2006
+2007,GIN,Guinea,1,0,,,,2006
+2007,GMB,"Gambia, The",0,1,,,,2006
+2007,GNB,Guinea - Bissau,1,0,,,,2006
+2007,HTI,Haiti,1,0,,,,2006
+2007,KHM,Cambodia,0,1,,,,2006
+2007,LAO,"Lao, PDR",1,0,,,,2006
+2007,LBR,Liberia,1,0,,,,2006
+2007,MMR,Myanmar,1,0,,,,2006
+2007,MRT,Mauritania,0,1,,,,2006
+2007,NGA,Nigeria,0,1,,,,2006
+2007,PNG,Papua New Guinea,0,1,,,,2006
+2007,PSE,West Bank and Gaza,1,0,,,,2006
+2007,SDN,Sudan,1,0,,,,2006
+2007,SLB,Solomon Islands,1,0,,,,2006
+2007,SLE,Sierra Leone,0,1,,,,2006
+2007,SOM,Somalia,1,0,,,,2006
+2007,STP,Sao Tome and Pr,0,1,,,,2006
+2007,TCD,Chad,1,0,,,,2006
+2007,TGO,Togo,1,0,,,,2006
+2007,TLS,Timor Leste,1,0,,,,2006
+2007,TON,Tonga,1,0,,,,2006
+2007,UZB,Uzbekistan,1,0,,,,2006
+2007,VUT,Vanuatu,0,1,,,,2006
+2007,XKX,Kosovo,1,0,,,,2006
+2007,ZWE,Zimbabwe,1,0,,,,2006
+2008,AFG,AFGHANISTAN,1,0,,,,2007
+2008,AGO,ANGOLA,1,0,,,,2007
+2008,BDI,BURUNDI,1,0,,,,2007
+2008,CAF,CENTRAL AFR. REP.,1,0,,,,2007
+2008,CIV,COTE D'IVOIRE,1,0,,,,2007
+2008,COD,"CONGO, DEM. REP.",1,0,,,,2007
+2008,COG,"CONGO, REP.",1,0,,,,2007
+2008,COM,COMOROS,1,0,,,,2007
+2008,DJI,DJIBOUTI,0,1,,,,2007
+2008,ERI,ERITREA,1,0,,,,2007
+2008,GIN,GUINEA,1,0,,,,2007
+2008,GMB,"GAMBIA, THE",0,1,,,,2007
+2008,GNB,GUINEA-BISSAU,1,0,,,,2007
+2008,HTI,HAITI,1,0,,,,2007
+2008,KHM,CAMBODIA,0,1,,,,2007
+2008,KIR,KIRIBATI,0,1,,,,2007
+2008,LAO,"LAO, PDR",0,1,,,,2007
+2008,LBR,LIBERIA,1,0,,,,2007
+2008,MMR,MYANMAR,1,0,,,,2007
+2008,PNG,PAPUA NEW GUINEA,0,1,,,,2007
+2008,PSE,WEST BANK & GAZA,1,0,,,,2007
+2008,SDN,SUDAN,1,0,,,,2007
+2008,SLB,SOLOMON ISLANDS,1,0,,,,2007
+2008,SLE,SIERRA LEONE,0,1,,,,2007
+2008,SOM,SOMALIA,1,0,,,,2007
+2008,STP,SAO TOME & PRINCIPE,1,0,,,,2007
+2008,TCD,CHAD,1,0,,,,2007
+2008,TGO,TOGO,1,0,,,,2007
+2008,TLS,TIMOR-LESTE,1,0,,,,2007
+2008,TON,TONGA,1,0,,,,2007
+2008,UZB,UZBEKISTAN,1,0,,,,2007
+2008,VUT,VANUATU,0,1,,,,2007
+2008,XKX,KOSOVO,1,0,,,,2007
+2008,ZWE,ZIMBABWE,1,0,,,,2007
+2009,AFG,Afghanistan,1,0,,,,2008
+2009,AGO,Angola,1,0,,,,2008
+2009,BDI,Burundi,1,0,,,,2008
+2009,CAF,Central African Rep.,1,0,,,,2008
+2009,CIV,Cote d'Ivoire,1,0,,,,2008
+2009,CMR,Cameroon,0,1,,,,2008
+2009,COD,"Congo, Dem. Rep.",1,0,,,,2008
+2009,COG,"Congo, Rep",1,0,,,,2008
+2009,COM,Comoros,1,0,,,,2008
+2009,DJI,Djibouti,0,1,,,,2008
+2009,ERI,Eritrea,1,0,,,,2008
+2009,GIN,Guinea,1,0,,,,2008
+2009,GMB,"Gambia, The",0,1,,,,2008
+2009,GNB,Guinea – Bissau,1,0,,,,2008
+2009,HTI,Haiti,1,0,,,,2008
+2009,KHM,Cambodia,0,1,,,,2008
+2009,KIR,Kiribati,0,1,,,,2008
+2009,LAO,"Lao, PDR",0,1,,,,2008
+2009,LBR,Liberia,1,0,,,,2008
+2009,MMR,Myanmar,1,0,,,,2008
+2009,PSE,West Bank and Gaza,1,0,,,,2008
+2009,SDN,Sudan,1,0,,,,2008
+2009,SLB,Solomon Islands,1,0,,,,2008
+2009,SLE,Sierra Leone,0,1,,,,2008
+2009,SOM,Somalia,1,0,,,,2008
+2009,STP,Sao Tome and Principe,1,0,,,,2008
+2009,TCD,Chad,1,0,,,,2008
+2009,TGO,Togo,1,0,,,,2008
+2009,TJK,Tajikistan,0,1,,,,2008
+2009,TLS,Timor-Leste,1,0,,,,2008
+2009,TON,Tonga,1,0,,,,2008
+2009,UZB,Uzbekistan,0,1,,,,2008
+2009,XKX,Kosovo,1,0,,,,2008
+2009,YEM,Yemen,0,1,,,,2008
+2009,ZWE,Zimbabwe,1,0,,,,2008
+2010,AFG,Afghanistan (PC) e/,1,0,,,,2009
+2010,AGO,Angola (PC),1,0,,,,2009
+2010,BDI,Burundi (PC),1,0,,,,2009
+2010,BIH,Bosnia & Herzegovina,1,0,,,,2009
+2010,CIV,Cote d'Ivoire (PC),1,0,,,,2009
+2010,CMR,Cameroon,1,0,,,,2009
+2010,COG,"Congo, Rep (PC)",1,0,,,,2009
+2010,COM,Comoros,1,0,,,,2009
+2010,DJI,Djibouti,1,0,,,,2009
+2010,ERI,Eritrea (PC),1,0,,,,2009
+2010,ESH,Western Sahara,1,0,,,,2009
+2010,GEO,Georgia,1,0,,,,2009
+2010,GIN,Guinea,1,0,,,,2009
+2010,GMB,"Gambia, The",1,0,,,,2009
+2010,GNB,Guinea-Bissau,1,0,,,,2009
+2010,HTI,Haiti (RE),1,0,,,,2009
+2010,KIR,Kiribati,1,0,,,,2009
+2010,LBR,Liberia (PC),1,0,,,,2009
+2010,MMR,Myanmar (NCIR),1,0,,,,2009
+2010,NPL,Nepal,1,0,,,,2009
+2010,PNG,Papua New Guinea,1,0,,,,2009
+2010,PSE,West Bank & Gaza,1,0,,,,2009
+2010,SDN,Sudan (NCIR),1,0,,,,2009
+2010,SLB,Solomon Islands,1,0,,,,2009
+2010,SLE,Sierra Leone,1,0,,,,2009
+2010,SOM,Somalia (NCIR),1,0,,,,2009
+2010,STP,Sao Tome and Principe,1,0,,,,2009
+2010,TCD,Chad,1,0,,,,2009
+2010,TGO,Togo (RE),1,0,,,,2009
+2010,TJK,Tajikistan,1,0,,,,2009
+2010,TLS,Timor-Leste (PC),1,0,,,,2009
+2010,TON,Tonga,1,0,,,,2009
+2010,XKX,Kosovo,1,0,,,,2009
+2010,YEM,Yemen,1,0,,,,2009
+2010,ZWE,Zimbabwe (NCIR),1,0,,,,2009
+2011,AFG,Afghanistan (PC),1,0,,,,2010
+2011,AGO,Angola (PC),1,0,,,,2010
+2011,BDI,Burundi (PC),1,0,,,,2010
+2011,BIH,Bosnia & Herzegovina,1,0,,,,2010
+2011,CIV,Cote d'Ivoire (PC),1,0,,,,2010
+2011,COG,"Congo, Rep (PC)",1,0,,,,2010
+2011,COM,Comoros,1,0,,,,2010
+2011,ERI,Eritrea (PC),1,0,,,,2010
+2011,ESH,Western Sahara,1,0,,,,2010
+2011,GEO,Georgia,1,0,,,,2010
+2011,GIN,Guinea,1,0,,,,2010
+2011,GNB,Guinea-Bissau,1,0,,,,2010
+2011,HTI,Haiti (RE),1,0,,,,2010
+2011,IRQ,Iraq,1,0,,,,2010
+2011,KIR,Kiribati,1,0,,,,2010
+2011,LBR,Liberia (PC),1,0,,,,2010
+2011,MMR,Myanmar (NCIR),1,0,,,,2010
+2011,NPL,Nepal,1,0,,,,2010
+2011,PSE,West Bank & Gaza,1,0,,,,2010
+2011,SDN,Sudan (NCIR),1,0,,,,2010
+2011,SLB,Solomon Islands,1,0,,,,2010
+2011,SLE,Sierra Leone,1,0,,,,2010
+2011,SOM,Somalia (NCIR),1,0,,,,2010
+2011,STP,Sao Tome and Principe,1,0,,,,2010
+2011,TCD,Chad,1,0,,,,2010
+2011,TGO,Togo (RE),1,0,,,,2010
+2011,TJK,Tajikistan,1,0,,,,2010
+2011,TLS,Timor-Leste (PC),1,0,,,,2010
+2011,XKX,Kosovo,1,0,,,,2010
+2011,YEM,Yemen,1,0,,,,2010
+2011,ZWE,Zimbabwe (NCIR),1,0,,,,2010
+2012,AFG,AFGHANISTAN,1,0,,,,2011
+2012,AGO,ANGOLA,1,0,,,,2011
+2012,BDI,BURUNDI,1,0,,,,2011
+2012,BIH,BOSNIA & HERZEGOVINA,1,0,,,,2011
+2012,CAF,CENTRAL AFR. REP.,1,0,,,,2011
+2012,CIV,COTE D'IVOIRE,1,0,,,,2011
+2012,COD,"CONGO, DEM. REP.",1,0,,,,2011
+2012,COG,"CONGO, REP",1,0,,,,2011
+2012,COM,COMOROS,1,0,,,,2011
+2012,ERI,ERITREA,1,0,,,,2011
+2012,ESH,WESTERN SAHARA,1,0,,,,2011
+2012,FSM,"MICRONESIA, FS",1,0,,,,2011
+2012,GEO,GEORGIA,1,0,,,,2011
+2012,GIN,GUINEA,1,0,,,,2011
+2012,GNB,GUINEA-BISSAU,1,0,,,,2011
+2012,HTI,HAITI,1,0,,,,2011
+2012,IRQ,IRAQ,1,0,,,,2011
+2012,KIR,KIRIBATI,1,0,,,,2011
+2012,LBR,LIBERIA,1,0,,,,2011
+2012,MHL,MARSHALL ISLANDS,1,0,,,,2011
+2012,MMR,MYANMAR,1,0,,,,2011
+2012,NPL,NEPAL,1,0,,,,2011
+2012,PSE,WEST BANK & GAZA,1,0,,,,2011
+2012,SDN,SUDAN,1,0,,,,2011
+2012,SLB,SOLOMON ISLANDS,1,0,,,,2011
+2012,SLE,SIERRA LEONE,1,0,,,,2011
+2012,SOM,SOMALIA,1,0,,,,2011
+2012,TCD,CHAD,1,0,,,,2011
+2012,TGO,TOGO,1,0,,,,2011
+2012,TLS,TIMOR-LESTE,1,0,,,,2011
+2012,XKX,KOSOVO,1,0,,,,2011
+2012,YEM,"YEMEN, REP.",1,0,,,,2011
+2012,ZWE,ZIMBABWE,1,0,,,,2011
+2013,AFG,Afghanistan,1,0,,,,2012
+2013,AGO,Angola,1,0,,,,2012
+2013,BDI,Burundi,1,0,,,,2012
+2013,BIH,Bosnia & Herzegovina,1,0,,,,2012
+2013,CAF,Central African Republic,1,0,,,,2012
+2013,CIV,Cote d'Ivoire,1,0,,,,2012
+2013,COG,"Congo, Rep",1,0,,,,2012
+2013,COM,Comoros,1,0,,,,2012
+2013,ERI,Eritrea,1,0,,,,2012
+2013,FSM,"Micronesia, FS",1,0,,,,2012
+2013,GIN,Guinea,1,0,,,,2012
+2013,GNB,Guinea-Bissau,1,0,,,,2012
+2013,HTI,Haiti,1,0,,,,2012
+2013,IRQ,Iraq,1,0,,,,2012
+2013,KIR,Kiribati,1,0,,,,2012
+2013,LBR,Liberia,1,0,,,,2012
+2013,LBY,Libya,1,0,,,,2012
+2013,MHL,Marshall Islands,1,0,,,,2012
+2013,MMR,Myanmar,1,0,,,,2012
+2013,NPL,Nepal,1,0,,,,2012
+2013,PSE,West Bank & Gaza,1,0,,,,2012
+2013,SDN,Sudan,1,0,,,,2012
+2013,SLB,Solomon Islands,1,0,,,,2012
+2013,SLE,Sierra Leone,1,0,,,,2012
+2013,SOM,Somalia,1,0,,,,2012
+2013,SSD,South Sudan **,1,0,,,,2012
+2013,SYR,Syria,1,0,,,,2012
+2013,TCD,Chad,1,0,,,,2012
+2013,TGO,Togo,1,0,,,,2012
+2013,TLS,Timor-Leste,1,0,,,,2012
+2013,TUV,Tuvalu **,1,0,,,,2012
+2013,XKX,Kosovo,1,0,,,,2012
+2013,YEM,Yemen,1,0,,,,2012
+2013,ZWE,Zimbabwe,1,0,,,,2012
+2014,AFG,Afghanistan,1,0,,,,2013
+2014,BDI,Burundi,1,0,,,,2013
+2014,BIH,Bosnia & Herzegovina,1,0,,,,2013
+2014,CAF,Central African Republic,1,0,,,,2013
+2014,CIV,Cote d'Ivoire,1,0,,,,2013
+2014,COG,"Congo, Rep",1,0,,,,2013
+2014,COM,Comoros,1,0,,,,2013
+2014,ERI,Eritrea,1,0,,,,2013
+2014,FSM,"Micronesia, FS",1,0,,,,2013
+2014,GNB,Guinea-Bissau,1,0,,,,2013
+2014,HTI,Haiti,1,0,,,,2013
+2014,IRQ,Iraq,1,0,,,,2013
+2014,KIR,Kiribati,1,0,,,,2013
+2014,LBR,Liberia,1,0,,,,2013
+2014,LBY,Libya,1,0,,,,2013
+2014,MDG,Madagascar,1,0,,,,2013
+2014,MHL,Marshall Islands,1,0,,,,2013
+2014,MLI,Mali,1,0,,,,2013
+2014,MMR,Myanmar,1,0,,,,2013
+2014,MWI,Malawi,1,0,,,,2013
+2014,NPL,Nepal,1,0,,,,2013
+2014,PSE,West Bank & Gaza,1,0,,,,2013
+2014,SDN,Sudan,1,0,,,,2013
+2014,SLB,Solomon Islands,1,0,,,,2013
+2014,SLE,Sierra Leone,1,0,,,,2013
+2014,SOM,Somalia,1,0,,,,2013
+2014,SSD,South Sudan,1,0,,,,2013
+2014,SYR,Syria,1,0,,,,2013
+2014,TCD,Chad,1,0,,,,2013
+2014,TGO,Togo,1,0,,,,2013
+2014,TLS,Timor-Leste,1,0,,,,2013
+2014,TUV,Tuvalu,1,0,,,,2013
+2014,XKX,Kosovo,1,0,,,,2013
+2014,YEM,Yemen,1,0,,,,2013
+2014,ZWE,Zimbabwe,1,0,,,,2013
+2015,AFG,Afghanistan,1,0,,,,2014
+2015,BDI,Burundi,1,0,,,,2014
+2015,BIH,Bosnia & Herzegovina,1,0,,,,2014
+2015,CAF,Central African Republic,1,0,,,,2014
+2015,CIV,Cote d'Ivoire,1,0,,,,2014
+2015,COD,"Congo, DR",1,0,,,,2014
+2015,COM,Comoros,1,0,,,,2014
+2015,ERI,Eritrea,1,0,,,,2014
+2015,FSM,"Micronesia, FS",1,0,,,,2014
+2015,GNB,Guinea-Bissau,1,0,,,,2014
+2015,HTI,Haiti,1,0,,,,2014
+2015,IRQ,Iraq,1,0,,,,2014
+2015,KIR,Kiribati,1,0,,,,2014
+2015,LBR,Liberia,1,0,,,,2014
+2015,LBY,Libya,1,0,,,,2014
+2015,MDG,Madagascar,1,0,,,,2014
+2015,MHL,Marshall Islands,1,0,,,,2014
+2015,MLI,Mali,1,0,,,,2014
+2015,MMR,Myanmar,1,0,,,,2014
+2015,PSE,West Bank & Gaza,1,0,,,,2014
+2015,SDN,Sudan,1,0,,,,2014
+2015,SLB,Solomon Islands,1,0,,,,2014
+2015,SLE,Sierra Leone,1,0,,,,2014
+2015,SOM,Somalia,1,0,,,,2014
+2015,SSD,South Sudan,1,0,,,,2014
+2015,SYR,Syria,1,0,,,,2014
+2015,TCD,Chad,1,0,,,,2014
+2015,TGO,Togo,1,0,,,,2014
+2015,TLS,Timor-Leste,1,0,,,,2014
+2015,TUV,Tuvalu,1,0,,,,2014
+2015,XKX,Kosovo,1,0,,,,2014
+2015,YEM,Yemen,1,0,,,,2014
+2015,ZWE,Zimbabwe,1,0,,,,2014
+2016,AFG,Afghanistan,1,0,,,,2015
+2016,BDI,Burundi,1,0,,,,2015
+2016,BIH,Bosnia & Herzegovina,1,0,,,,2015
+2016,CAF,Central African Republic,1,0,,,,2015
+2016,CIV,Côte d'Ivoire,1,0,,,,2015
+2016,COD,"Congo, Dem. Rep.",1,0,,,,2015
+2016,COM,Comoros,1,0,,,,2015
+2016,ERI,Eritrea,1,0,,,,2015
+2016,FSM,"Micronesia, Fed. Sts",1,0,,,,2015
+2016,GMB,"Gambia, The",1,0,,,,2015
+2016,GNB,Guinea Bissau,1,0,,,,2015
+2016,HTI,Haiti,1,0,,,,2015
+2016,IRQ,Iraq,1,0,,,,2015
+2016,KIR,Kiribati,1,0,,,,2015
+2016,LBN,Lebanon,1,0,,,,2015
+2016,LBR,Liberia,1,0,,,,2015
+2016,LBY,Libya,1,0,,,,2015
+2016,MDG,Madagascar,1,0,,,,2015
+2016,MHL,Marshall Islands,1,0,,,,2015
+2016,MLI,Mali,1,0,,,,2015
+2016,MMR,Myanmar,1,0,,,,2015
+2016,PSE,West Bank & Gaza,1,0,,,,2015
+2016,SDN,Sudan,1,0,,,,2015
+2016,SLB,Solomon Islands,1,0,,,,2015
+2016,SLE,Sierra Leone,1,0,,,,2015
+2016,SOM,Somalia,1,0,,,,2015
+2016,SSD,South Sudan,1,0,,,,2015
+2016,SYR,Syria,1,0,,,,2015
+2016,TCD,Chad,1,0,,,,2015
+2016,TGO,Togo,1,0,,,,2015
+2016,TLS,Timor-Leste,1,0,,,,2015
+2016,TUV,Tuvalu,1,0,,,,2015
+2016,XKX,Kosovo,1,0,,,,2015
+2016,YEM,"Yemen, Rep.",1,0,,,,2015
+2016,ZWE,Zimbabwe,1,0,,,,2015
+2017,AFG,Afghanistan,1,0,,,,2016
+2017,BDI,Burundi,1,0,,,,2016
+2017,CAF,Central African Republic,1,0,,,,2016
+2017,CIV,Côte d'Ivoire,1,0,,,,2016
+2017,COD,"Congo, Dem. Rep.",1,0,,,,2016
+2017,COM,Comoros,1,0,,,,2016
+2017,DJI,Djibouti,1,0,,,,2016
+2017,ERI,Eritrea,1,0,,,,2016
+2017,FSM,"Micronesia, Fed. Sts",1,0,,,,2016
+2017,GMB,"Gambia, The",1,0,,,,2016
+2017,GNB,Guinea-Bissau,1,0,,,,2016
+2017,HTI,Haiti,1,0,,,,2016
+2017,IRQ,Iraq,1,0,,,,2016
+2017,KIR,Kiribati,1,0,,,,2016
+2017,LBN,Lebanon,1,0,,,,2016
+2017,LBR,Liberia,1,0,,,,2016
+2017,LBY,Libya,1,0,,,,2016
+2017,MDG,Madagascar,1,0,,,,2016
+2017,MHL,Marshall Islands,1,0,,,,2016
+2017,MLI,Mali,1,0,,,,2016
+2017,MMR,Myanmar,1,0,,,,2016
+2017,PNG,Papua New Guinea,1,0,,,,2016
+2017,PSE,West Bank and Gaza,1,0,,,,2016
+2017,SDN,Sudan,1,0,,,,2016
+2017,SLB,Solomon Islands,1,0,,,,2016
+2017,SLE,Sierra Leone,1,0,,,,2016
+2017,SOM,Somalia,1,0,,,,2016
+2017,SSD,South Sudan,1,0,,,,2016
+2017,SYR,Syria,1,0,,,,2016
+2017,TCD,Chad,1,0,,,,2016
+2017,TGO,Togo,1,0,,,,2016
+2017,TUV,Tuvalu,1,0,,,,2016
+2017,XKX,Kosovo,1,0,,,,2016
+2017,YEM,"Yemen, Rep.",1,0,,,,2016
+2017,ZWE,Zimbabwe,1,0,,,,2016
+2018,AFG,Afghanistan,1,0,,,,2017
+2018,BDI,Burundi,1,0,,,,2017
+2018,CAF,Central African Republic,1,0,,,,2017
+2018,CIV,Côte d'Ivoire,1,0,,,,2017
+2018,COD,"Congo, Dem. Rep.",1,0,,,,2017
+2018,COG,"Congo, Rep",1,0,,,,2017
+2018,COM,Comoros,1,0,,,,2017
+2018,DJI,Djibouti,1,0,,,,2017
+2018,ERI,Eritrea,1,0,,,,2017
+2018,FSM,"Micronesia, Fed. Sts",1,0,,,,2017
+2018,GMB,"Gambia, The",1,0,,,,2017
+2018,GNB,Guinea-Bissau,1,0,,,,2017
+2018,HTI,Haiti,1,0,,,,2017
+2018,IRQ,Iraq,1,0,,,,2017
+2018,KIR,Kiribati,1,0,,,,2017
+2018,LBN,Lebanon,1,0,,,,2017
+2018,LBR,Liberia,1,0,,,,2017
+2018,LBY,Libya,1,0,,,,2017
+2018,MHL,Marshall Islands,1,0,,,,2017
+2018,MLI,Mali,1,0,,,,2017
+2018,MMR,Myanmar,1,0,,,,2017
+2018,MOZ,Mozambique,1,0,,,,2017
+2018,PNG,Papua New Guinea,1,0,,,,2017
+2018,PSE,West Bank and Gaza,1,0,,,,2017
+2018,SDN,Sudan,1,0,,,,2017
+2018,SLB,Solomon Islands,1,0,,,,2017
+2018,SLE,Sierra Leone,1,0,,,,2017
+2018,SOM,Somalia,1,0,,,,2017
+2018,SSD,South Sudan,1,0,,,,2017
+2018,SYR,Syria,1,0,,,,2017
+2018,TCD,Chad,1,0,,,,2017
+2018,TGO,Togo,1,0,,,,2017
+2018,TUV,Tuvalu,1,0,,,,2017
+2018,XKX,Kosovo,1,0,,,,2017
+2018,YEM,"Yemen, Rep.",1,0,,,,2017
+2018,ZWE,Zimbabwe,1,0,,,,2017
+2019,AFG,Afghanistan,1,0,,,,2018
+2019,BDI,Burundi,1,0,,,,2018
+2019,CAF,Central African Republic,1,0,,,,2018
+2019,CIV,Côte dIvoire,1,0,,,,2018
+2019,COD,"Congo, Dem. Rep.",1,0,,,,2018
+2019,COG,"Congo, Rep",1,0,,,,2018
+2019,COM,Comoros,1,0,,,,2018
+2019,DJI,Djibouti,1,0,,,,2018
+2019,ERI,Eritrea,1,0,,,,2018
+2019,FSM,"Micronesia, Fed. Sts",1,0,,,,2018
+2019,GMB,"Gambia, The",1,0,,,,2018
+2019,GNB,Guinea-Bissau,1,0,,,,2018
+2019,HTI,Haiti,1,0,,,,2018
+2019,IRQ,Iraq,1,0,,,,2018
+2019,KIR,Kiribati,1,0,,,,2018
+2019,LBN,Lebanon,1,0,,,,2018
+2019,LBR,Liberia,1,0,,,,2018
+2019,LBY,Libya,1,0,,,,2018
+2019,MHL,Marshall Islands,1,0,,,,2018
+2019,MLI,Mali,1,0,,,,2018
+2019,MMR,Myanmar,1,0,,,,2018
+2019,MOZ,Mozambique,1,0,,,,2018
+2019,PNG,Papua New Guinea,1,0,,,,2018
+2019,PSE,West Bank and Gaza,1,0,,,,2018
+2019,SDN,Sudan,1,0,,,,2018
+2019,SLB,Solomon Islands,1,0,,,,2018
+2019,SOM,Somalia,1,0,,,,2018
+2019,SSD,South Sudan,1,0,,,,2018
+2019,SYR,Syria,1,0,,,,2018
+2019,TCD,Chad,1,0,,,,2018
+2019,TGO,Togo,1,0,,,,2018
+2019,TLS,Timor-Leste,1,0,,,,2018
+2019,TUV,Tuvalu,1,0,,,,2018
+2019,XKX,Kosovo,1,0,,,,2018
+2019,YEM,"Yemen, Rep.",1,0,,,,2018
+2019,ZWE,Zimbabwe,1,0,,,,2018
+2020,AFG,Afghanistan,1,0,1.0,0.0,alta,2019
+2020,BDI,Burundi,1,0,1.0,0.0,media,2019
+2020,BFA,Burkina Faso,1,0,1.0,0.0,media,2019
+2020,CAF,Central African Republic,1,0,1.0,0.0,alta,2019
+2020,CMR,Cameroon,1,0,1.0,0.0,media,2019
+2020,COD,"Congo, Dem. Rep.",1,0,1.0,0.0,media,2019
+2020,COG,"Congo, Rep.",1,0,0.0,1.0,,2019
+2020,COM,Comoros,1,0,0.0,1.0,,2019
+2020,ERI,Eritrea,1,0,0.0,1.0,,2019
+2020,FSM,"Micronesia, Fed. Sts.",1,0,0.0,1.0,,2019
+2020,GMB,"Gambia, The",1,0,0.0,1.0,,2019
+2020,GNB,Guinea-Bissau,1,0,0.0,1.0,,2019
+2020,HTI,Haiti,1,0,0.0,1.0,,2019
+2020,IRQ,Iraq,1,0,1.0,0.0,media,2019
+2020,KIR,Kiribati,1,0,0.0,1.0,,2019
+2020,LBN,Lebanon,1,0,0.0,1.0,,2019
+2020,LBR,Liberia,1,0,0.0,1.0,,2019
+2020,LBY,Libya,1,0,1.0,0.0,alta,2019
+2020,MHL,Marshall Islands,1,0,0.0,1.0,,2019
+2020,MLI,Mali,1,0,1.0,0.0,media,2019
+2020,MMR,Myanmar,1,0,0.0,1.0,,2019
+2020,NER,Niger,1,0,1.0,0.0,media,2019
+2020,NGA,Nigeria,1,0,1.0,0.0,media,2019
+2020,PNG,Papua New Guinea,1,0,0.0,1.0,,2019
+2020,PSE,West Bank and Gaza (territory),1,0,0.0,1.0,,2019
+2020,SDN,Sudan,1,0,1.0,0.0,media,2019
+2020,SLB,Solomon Islands,1,0,0.0,1.0,,2019
+2020,SOM,Somalia,1,0,1.0,0.0,alta,2019
+2020,SSD,South Sudan,1,0,1.0,0.0,alta,2019
+2020,SYR,Syrian Arab Rep.,1,0,1.0,0.0,alta,2019
+2020,TCD,Chad,1,0,0.0,1.0,,2019
+2020,TLS,Timor-Leste,1,0,0.0,1.0,,2019
+2020,TUV,Tuvalu,1,0,0.0,1.0,,2019
+2020,VEN,"Venezuela, RB",1,0,0.0,1.0,,2019
+2020,XKX,Kosovo,1,0,0.0,1.0,,2019
+2020,YEM,"Yemen, Rep.",1,0,1.0,0.0,alta,2019
+2020,ZWE,Zimbabwe,1,0,0.0,1.0,,2019
+2021,AFG,Afghanistan,1,0,1.0,0.0,alta,2020
+2021,BDI,Burundi,1,0,0.0,1.0,,2020
+2021,BFA,Burkina Faso,1,0,1.0,0.0,media,2020
+2021,CAF,Central African Republic,1,0,1.0,0.0,media,2020
+2021,CMR,Cameroon,1,0,1.0,0.0,media,2020
+2021,COD,"Congo, Dem. Rep.",1,0,1.0,0.0,media,2020
+2021,COG,"Congo, Rep.",1,0,0.0,1.0,,2020
+2021,COM,Comoros,1,0,0.0,1.0,,2020
+2021,ERI,Eritrea,1,0,0.0,1.0,,2020
+2021,FSM,"Micronesia, Fed. Sts.",1,0,0.0,1.0,,2020
+2021,GMB,"Gambia, The",1,0,0.0,1.0,,2020
+2021,GNB,Guinea-Bissau,1,0,0.0,1.0,,2020
+2021,HTI,Haiti,1,0,0.0,1.0,,2020
+2021,IRQ,Iraq,1,0,1.0,0.0,media,2020
+2021,KIR,Kiribati,1,0,0.0,1.0,,2020
+2021,LAO,Lao PDR,1,0,0.0,1.0,,2020
+2021,LBN,Lebanon,1,0,0.0,1.0,,2020
+2021,LBR,Liberia,1,0,0.0,1.0,,2020
+2021,LBY,Libya,1,0,1.0,0.0,alta,2020
+2021,MHL,Marshall Islands,1,0,0.0,1.0,,2020
+2021,MLI,Mali,1,0,1.0,0.0,media,2020
+2021,MMR,Myanmar,1,0,1.0,0.0,media,2020
+2021,MOZ,Mozambique,1,0,1.0,0.0,media,2020
+2021,NER,Niger,1,0,1.0,0.0,media,2020
+2021,NGA,Nigeria,1,0,1.0,0.0,media,2020
+2021,PNG,Papua New Guinea,1,0,0.0,1.0,,2020
+2021,PSE,West Bank and Gaza (territory),1,0,0.0,1.0,,2020
+2021,SDN,Sudan,1,0,0.0,1.0,,2020
+2021,SLB,Solomon Islands,1,0,0.0,1.0,,2020
+2021,SOM,Somalia,1,0,1.0,0.0,alta,2020
+2021,SSD,South Sudan,1,0,1.0,0.0,media,2020
+2021,SYR,Syrian Arab Republic,1,0,1.0,0.0,alta,2020
+2021,TCD,Chad,1,0,1.0,0.0,media,2020
+2021,TLS,Timor-Leste,1,0,0.0,1.0,,2020
+2021,TUV,Tuvalu,1,0,0.0,1.0,,2020
+2021,VEN,"Venezuela, RB",1,0,0.0,1.0,,2020
+2021,XKX,Kosovo,1,0,0.0,1.0,,2020
+2021,YEM,"Yemen, Rep.",1,0,1.0,0.0,media,2020
+2021,ZWE,Zimbabwe,1,0,0.0,1.0,,2020
+2022,AFG,Afghanistan,1,0,1.0,0.0,alta,2021
+2022,ARM,Armenia,1,0,1.0,0.0,alta,2021
+2022,AZE,Azerbaijan,1,0,1.0,0.0,alta,2021
+2022,BDI,Burundi,1,0,1.0,0.0,media,2021
+2022,BFA,Burkina Faso,1,0,1.0,0.0,media,2021
+2022,CAF,Central African Republic,1,0,1.0,0.0,media,2021
+2022,CMR,Cameroon,1,0,1.0,0.0,media,2021
+2022,COD,"Congo, Dem. Rep.",1,0,1.0,0.0,media,2021
+2022,COG,"Congo, Rep.",1,0,0.0,1.0,,2021
+2022,COM,Comoros,1,0,0.0,1.0,,2021
+2022,ERI,Eritrea,1,0,0.0,1.0,,2021
+2022,ETH,Ethiopia,1,0,1.0,0.0,media,2021
+2022,FSM,"Micronesia, Fed. Sts.",1,0,0.0,1.0,,2021
+2022,GNB,Guinea-Bissau,1,0,0.0,1.0,,2021
+2022,HTI,Haiti,1,0,1.0,0.0,media,2021
+2022,IRQ,Iraq,1,0,1.0,0.0,media,2021
+2022,KIR,Kiribati,1,0,0.0,1.0,,2021
+2022,LBN,Lebanon,1,0,0.0,1.0,,2021
+2022,LBY,Libya,1,0,1.0,0.0,media,2021
+2022,MHL,Marshall Islands,1,0,0.0,1.0,,2021
+2022,MLI,Mali,1,0,1.0,0.0,media,2021
+2022,MMR,Myanmar,1,0,1.0,0.0,media,2021
+2022,MOZ,Mozambique,1,0,1.0,0.0,media,2021
+2022,NER,Niger,1,0,1.0,0.0,media,2021
+2022,NGA,Nigeria,1,0,1.0,0.0,media,2021
+2022,PNG,Papua New Guinea,1,0,0.0,1.0,,2021
+2022,PSE,West Bank and Gaza (territory),1,0,0.0,1.0,,2021
+2022,SDN,Sudan,1,0,0.0,1.0,,2021
+2022,SLB,Solomon Islands,1,0,0.0,1.0,,2021
+2022,SOM,Somalia,1,0,1.0,0.0,alta,2021
+2022,SSD,South Sudan,1,0,1.0,0.0,media,2021
+2022,SYR,Syrian Arab Republic,1,0,1.0,0.0,alta,2021
+2022,TCD,Chad,1,0,1.0,0.0,media,2021
+2022,TLS,Timor-Leste,1,0,0.0,1.0,,2021
+2022,TUV,Tuvalu,1,0,0.0,1.0,,2021
+2022,VEN,"Venezuela, RB",1,0,0.0,1.0,,2021
+2022,XKX,Kosovo,1,0,0.0,1.0,,2021
+2022,YEM,"Yemen, Rep.",1,0,1.0,0.0,alta,2021
+2022,ZWE,Zimbabwe,1,0,0.0,1.0,,2021
+2023,AFG,Afghanistan,1,0,1.0,0.0,,2022
+2023,BDI,Burundi,1,0,0.0,1.0,,2022
+2023,BFA,Burkina Faso,1,0,1.0,0.0,,2022
+2023,CAF,Central African Republic,1,0,1.0,0.0,,2022
+2023,CMR,Cameroon,1,0,1.0,0.0,,2022
+2023,COD,"Congo, Democratic Republic of",1,0,1.0,0.0,,2022
+2023,COG,"Congo, Republic of",1,0,0.0,1.0,,2022
+2023,COM,Comoros,1,0,0.0,1.0,,2022
+2023,ERI,Eritrea,1,0,0.0,1.0,,2022
+2023,ETH,Ethiopia,1,0,1.0,0.0,,2022
+2023,FSM,"Micronesia, Federated States of",1,0,0.0,1.0,,2022
+2023,GNB,Guinea-Bissau,1,0,0.0,1.0,,2022
+2023,HTI,Haiti,1,0,0.0,1.0,,2022
+2023,IRQ,Iraq,1,0,1.0,0.0,,2022
+2023,LBN,Lebanon,1,0,0.0,1.0,,2022
+2023,LBY,Libya,1,0,0.0,1.0,,2022
+2023,MHL,Marshall Islands,1,0,0.0,1.0,,2022
+2023,MLI,Mali,1,0,1.0,0.0,,2022
+2023,MMR,Myanmar,1,0,1.0,0.0,,2022
+2023,MOZ,Mozambique,1,0,1.0,0.0,,2022
+2023,NER,Niger,1,0,1.0,0.0,,2022
+2023,NGA,Nigeria,1,0,1.0,0.0,,2022
+2023,PNG,Papua New Guinea,1,0,0.0,1.0,,2022
+2023,PSE,West Bank and Gaza (territory),1,0,0.0,1.0,,2022
+2023,SDN,Sudan,1,0,0.0,1.0,,2022
+2023,SLB,Solomon Islands,1,0,0.0,1.0,,2022
+2023,SOM,Somalia,1,0,1.0,0.0,,2022
+2023,SSD,South Sudan,1,0,1.0,0.0,,2022
+2023,SYR,Syrian Arab Republic,1,0,1.0,0.0,,2022
+2023,TCD,Chad,1,0,0.0,1.0,,2022
+2023,TLS,Timor-Leste,1,0,0.0,1.0,,2022
+2023,TUV,Tuvalu,1,0,0.0,1.0,,2022
+2023,UKR,Ukraine,1,0,1.0,0.0,,2022
+2023,VEN,"Venezuela, RB",1,0,0.0,1.0,,2022
+2023,XKX,Kosovo,1,0,0.0,1.0,,2022
+2023,YEM,"Yemen, Republic of",1,0,1.0,0.0,,2022
+2023,ZWE,Zimbabwe,1,0,0.0,1.0,,2022
+2024,AFG,Afghanistan,1,0,1.0,0.0,,2023
+2024,BDI,Burundi,1,0,0.0,1.0,,2023
+2024,BFA,Burkina Faso,1,0,1.0,0.0,,2023
+2024,CAF,Central African Republic,1,0,1.0,0.0,,2023
+2024,CMR,Cameroon,1,0,1.0,0.0,,2023
+2024,COD,"Congo, Democratic Republic of",1,0,1.0,0.0,,2023
+2024,COG,"Congo, Republic of",1,0,0.0,1.0,,2023
+2024,COM,Comoros,1,0,0.0,1.0,,2023
+2024,ERI,Eritrea,1,0,0.0,1.0,,2023
+2024,ETH,Ethiopia,1,0,1.0,0.0,,2023
+2024,FSM,"Micronesia, Federated States of",1,0,0.0,1.0,,2023
+2024,GNB,Guinea-Bissau,1,0,0.0,1.0,,2023
+2024,HTI,Haiti,1,0,0.0,1.0,,2023
+2024,IRQ,Iraq,1,0,1.0,0.0,,2023
+2024,KIR,Kiribati,1,0,0.0,1.0,,2023
+2024,LBN,Lebanon,1,0,0.0,1.0,,2023
+2024,LBY,Libya,1,0,0.0,1.0,,2023
+2024,MHL,Marshall Islands,1,0,0.0,1.0,,2023
+2024,MLI,Mali,1,0,1.0,0.0,,2023
+2024,MMR,Myanmar,1,0,1.0,0.0,,2023
+2024,MOZ,Mozambique,1,0,1.0,0.0,,2023
+2024,NER,Niger,1,0,1.0,0.0,,2023
+2024,NGA,Nigeria,1,0,1.0,0.0,,2023
+2024,PNG,Papua New Guinea,1,0,0.0,1.0,,2023
+2024,PSE,West Bank and Gaza (territory),1,0,1.0,0.0,,2023
+2024,SDN,Sudan,1,0,1.0,0.0,,2023
+2024,SLB,Solomon Islands,1,0,0.0,1.0,,2023
+2024,SOM,Somalia,1,0,1.0,0.0,,2023
+2024,SSD,South Sudan,1,0,1.0,0.0,,2023
+2024,STP,São Tomé and Príncipe,1,0,0.0,1.0,,2023
+2024,SYR,Syrian Arab Republic,1,0,1.0,0.0,,2023
+2024,TCD,Chad,1,0,0.0,1.0,,2023
+2024,TLS,Timor-Leste,1,0,0.0,1.0,,2023
+2024,TUV,Tuvalu,1,0,0.0,1.0,,2023
+2024,UKR,Ukraine,1,0,1.0,0.0,,2023
+2024,VEN,"Venezuela, RB",1,0,0.0,1.0,,2023
+2024,XKX,Kosovo,1,0,0.0,1.0,,2023
+2024,YEM,"Yemen, Republic of",1,0,1.0,0.0,,2023
+2024,ZWE,Zimbabwe,1,0,0.0,1.0,,2023
+2025,AFG,Afghanistan,1,0,1.0,0.0,,2024
+2025,BDI,Burundi,1,0,0.0,1.0,,2024
+2025,BFA,Burkina Faso,1,0,1.0,0.0,,2024
+2025,CAF,Central African Republic,1,0,1.0,0.0,,2024
+2025,CMR,Cameroon,1,0,1.0,0.0,,2024
+2025,COD,"Congo, Democratic Republic of",1,0,1.0,0.0,,2024
+2025,COG,"Congo, Republic of",1,0,0.0,1.0,,2024
+2025,COM,Comoros,1,0,0.0,1.0,,2024
+2025,ERI,Eritrea,1,0,0.0,1.0,,2024
+2025,ETH,Ethiopia,1,0,1.0,0.0,,2024
+2025,FSM,"Micronesia, Federated States of",1,0,0.0,1.0,,2024
+2025,GNB,Guinea-Bissau,1,0,0.0,1.0,,2024
+2025,HTI,Haiti,1,0,1.0,0.0,,2024
+2025,IRQ,Iraq,1,0,1.0,0.0,,2024
+2025,KIR,Kiribati,1,0,0.0,1.0,,2024
+2025,LBN,Lebanon,1,0,1.0,0.0,,2024
+2025,LBY,Libya,1,0,0.0,1.0,,2024
+2025,MHL,Marshall Islands,1,0,0.0,1.0,,2024
+2025,MLI,Mali,1,0,1.0,0.0,,2024
+2025,MMR,Myanmar,1,0,1.0,0.0,,2024
+2025,MOZ,Mozambique,1,0,1.0,0.0,,2024
+2025,NER,Niger,1,0,1.0,0.0,,2024
+2025,NGA,Nigeria,1,0,1.0,0.0,,2024
+2025,PNG,Papua New Guinea,1,0,0.0,1.0,,2024
+2025,PSE,West Bank and Gaza (territory),1,0,1.0,0.0,,2024
+2025,SDN,Sudan,1,0,1.0,0.0,,2024
+2025,SLB,Solomon Islands,1,0,0.0,1.0,,2024
+2025,SOM,Somalia,1,0,1.0,0.0,,2024
+2025,SSD,South Sudan,1,0,1.0,0.0,,2024
+2025,STP,São Tomé and Príncipe,1,0,0.0,1.0,,2024
+2025,SYR,Syrian Arab Republic,1,0,1.0,0.0,,2024
+2025,TCD,Chad,1,0,0.0,1.0,,2024
+2025,TLS,Timor-Leste,1,0,0.0,1.0,,2024
+2025,TUV,Tuvalu,1,0,0.0,1.0,,2024
+2025,UKR,Ukraine,1,0,1.0,0.0,,2024
+2025,VEN,"Venezuela, RB",1,0,0.0,1.0,,2024
+2025,XKX,Kosovo,1,0,0.0,1.0,,2024
+2025,YEM,"Yemen, Republic of",1,0,1.0,0.0,,2024
+2025,ZWE,Zimbabwe,1,0,0.0,1.0,,2024
+2026,AFG,Afghanistan,1,0,1.0,0.0,,2025
+2026,BDI,Burundi,1,0,0.0,1.0,,2025
+2026,BFA,Burkina Faso,1,0,1.0,0.0,,2025
+2026,CAF,Central African Republic,1,0,1.0,0.0,,2025
+2026,CMR,Cameroon,1,0,1.0,0.0,,2025
+2026,COD,"Congo, Democratic Republic of",1,0,1.0,0.0,,2025
+2026,COG,"Congo, Republic of",1,0,0.0,1.0,,2025
+2026,COM,Comoros,1,0,0.0,1.0,,2025
+2026,ERI,Eritrea,1,0,0.0,1.0,,2025
+2026,ETH,Ethiopia,1,0,1.0,0.0,,2025
+2026,FSM,"Micronesia, Federated States of",1,0,0.0,1.0,,2025
+2026,GNB,Guinea-Bissau,1,0,0.0,1.0,,2025
+2026,HTI,Haiti,1,0,1.0,0.0,,2025
+2026,IRQ,Iraq,1,0,1.0,0.0,,2025
+2026,KIR,Kiribati,1,0,0.0,1.0,,2025
+2026,LBN,Lebanon,1,0,1.0,0.0,,2025
+2026,LBY,Libya,1,0,0.0,1.0,,2025
+2026,MHL,Marshall Islands,1,0,0.0,1.0,,2025
+2026,MLI,Mali,1,0,1.0,0.0,,2025
+2026,MMR,Myanmar,1,0,1.0,0.0,,2025
+2026,MOZ,Mozambique,1,0,1.0,0.0,,2025
+2026,NER,Niger,1,0,1.0,0.0,,2025
+2026,NGA,Nigeria,1,0,1.0,0.0,,2025
+2026,PNG,Papua New Guinea,1,0,0.0,1.0,,2025
+2026,PSE,West Bank and Gaza (territory),1,0,1.0,0.0,,2025
+2026,SDN,Sudan,1,0,1.0,0.0,,2025
+2026,SLB,Solomon Islands,1,0,0.0,1.0,,2025
+2026,SOM,Somalia,1,0,1.0,0.0,,2025
+2026,SSD,South Sudan,1,0,1.0,0.0,,2025
+2026,STP,São Tomé and Príncipe,1,0,0.0,1.0,,2025
+2026,SYR,Syrian Arab Republic,1,0,1.0,0.0,,2025
+2026,TCD,Chad,1,0,0.0,1.0,,2025
+2026,TLS,Timor-Leste,1,0,0.0,1.0,,2025
+2026,TUV,Tuvalu,1,0,0.0,1.0,,2025
+2026,UKR,Ukraine,1,0,1.0,0.0,,2025
+2026,VEN,"Venezuela, RB",1,0,0.0,1.0,,2025
+2026,YEM,"Yemen, Republic of",1,0,1.0,0.0,,2025
+2026,ZWE,Zimbabwe,1,0,0.0,1.0,,2025
+2027,AFG,,1,0,1.0,1.0,,2026
+2027,BFA,,1,0,1.0,0.0,,2026
+2027,CAF,,1,0,1.0,1.0,,2026
+2027,CMR,,1,0,1.0,0.0,,2026
+2027,COD,,1,0,1.0,0.0,,2026
+2027,COG,,1,0,0.0,1.0,,2026
+2027,COM,,1,0,0.0,1.0,,2026
+2027,ERI,,1,0,0.0,1.0,,2026
+2027,ETH,,1,0,1.0,0.0,,2026
+2027,FSM,,1,0,0.0,1.0,,2026
+2027,GNB,,1,0,0.0,1.0,,2026
+2027,HTI,,1,0,1.0,1.0,,2026
+2027,IRN,,1,0,1.0,0.0,,2026
+2027,IRQ,,1,0,1.0,0.0,,2026
+2027,KIR,,1,0,0.0,1.0,,2026
+2027,LBN,,1,0,1.0,0.0,,2026
+2027,LBY,,1,0,1.0,0.0,,2026
+2027,MDV,,1,0,0.0,1.0,,2026
+2027,MHL,,1,0,0.0,1.0,,2026
+2027,MLI,,1,0,1.0,0.0,,2026
+2027,MMR,,1,0,1.0,1.0,,2026
+2027,MOZ,,1,0,1.0,1.0,,2026
+2027,MWI,,1,0,0.0,1.0,,2026
+2027,NER,,1,0,1.0,0.0,,2026
+2027,NGA,,1,0,1.0,0.0,,2026
+2027,PNG,,1,0,1.0,1.0,,2026
+2027,PSE,,1,0,1.0,0.0,,2026
+2027,SDN,,1,0,1.0,1.0,,2026
+2027,SLB,,1,0,0.0,1.0,,2026
+2027,SOM,,1,0,1.0,1.0,,2026
+2027,SSD,,1,0,1.0,1.0,,2026
+2027,STP,,1,0,0.0,1.0,,2026
+2027,SYR,,1,0,1.0,1.0,,2026
+2027,TCD,,1,0,0.0,1.0,,2026
+2027,TLS,,1,0,0.0,1.0,,2026
+2027,TUV,,1,0,0.0,1.0,,2026
+2027,UKR,,1,0,1.0,0.0,,2026
+2027,YEM,,1,0,1.0,1.0,,2026

@@ -1,0 +1,6 @@
+regra,decisao
+marginal FY06–09,"fcs_marginal = 1, fora de fcs_any (lista 'para monitoramento')"
+categorias,"conflito × institucional só a partir de FY20; antes, só fcs_any"
+FY27,fcs_conflict = Public FCV List; fcs_institutional = Institutional Fragility List
+ano-calendário,year = FY − 1
+trajetória,"crônico: ≥ 80% dos FY06–FY27 na lista; entrada: fora nos 3 primeiros e dentro em algum dos 3 últimos, mais anos na 2ª metade; saída: o inverso; demais com algum ano = intermitente; nunca = sem anos"
