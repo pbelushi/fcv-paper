@@ -156,11 +156,20 @@ def main() -> None:
     pd.DataFrame([summ]).to_csv(TAB / "mde.csv", index=False)
     print("\nMDE:", {k: round(v, 3) if isinstance(v, float) else v for k, v in summ.items()})
 
-    fig, ax = C.ps.plt.subplots(figsize=(6.8, 3.6))
-    items = [("Efeito implícito do PIB\n(ATT agregado)", summ["passthrough_att_agregado"], C.ps.THIRD),
-             ("Efeito implícito do PIB\n(ATT da coorte)", summ["passthrough_att_coorte"], C.ps.THIRD),
-             ("ATT estimado na pobreza", att_real, C.ps.TREATED),
-             ("MDE simulado (80%)", summ["mde_simulado"], C.ps.CONTROL), ("MDE 2,8 × EP real", summ["mde_2_8_ep"], C.ps.CONTROL)]
+    plot_summary()
+
+
+
+def plot_summary() -> None:
+    """Figura-síntese: efeito implícito do PIB (04) × MDE × ATT estimado (lê mde.csv e passthrough.csv)."""
+    m = pd.read_csv(TAB / "mde.csv").iloc[0]
+    pt = pd.read_csv(TAB / "passthrough.csv").set_index("variante").delta_pp_medio
+    items = [("Efeito implícito do PIB\n(ATT agregado, CS REG)", pt["ATT agregado"], C.ps.THIRD),
+             ("Efeito implícito do PIB\n(ATT sem covariáveis)", pt["ATT agregado sem covariáveis"], C.ps.THIRD),
+             ("Efeito implícito do PIB\n(ATT da coorte)", pt["ATT da coorte"], C.ps.THIRD),
+             ("ATT estimado na pobreza", m.att_estimado, C.ps.TREATED),
+             ("MDE simulado (80%)", m.mde_simulado, C.ps.CONTROL), ("MDE 2,8 × EP real", m.mde_2_8_ep, C.ps.CONTROL)]
+    fig, ax = C.ps.plt.subplots(figsize=(6.8, 3.9))
     for k, (lab, v, c) in enumerate(items):
         ax.barh(k, v, color=c, height=0.55)
         ax.text(v, k, f" {v:.2f}".replace(".", ","), va="center", fontsize=8, color=C.ps.INK)

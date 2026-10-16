@@ -139,6 +139,7 @@ def main() -> None:
         ax.plot(t.year, 100 * t.share_pobres_extrap, color=c, lw=2.2 if grp != "global" else 1.4,
                 ls="-" if grp != "global" else "--", label=lab)
     ax.set_ylim(0, 100)
+    ps.int_xaxis(ax)
     ax.set_ylabel("% dos pobres estimados (US$ 3,00/dia)")
     ax.set_title("Pobreza extrapolada ou estimada por modelo, 2005–2024", loc="left")
     ax.legend(fontsize=8, loc="upper left")
@@ -147,6 +148,7 @@ def main() -> None:
     for g, c in [("cronico", ps.CONTROL), ("entrada", ps.THIRD), ("saida", "#6250d6"), ("nunca", ps.TREATED)]:
         t = traj[traj.grupo == g].sort_values("year")
         ax.plot(t.year, 100 * t.share_survey_pip.rolling(3, min_periods=1).mean(), color=c, label=g)
+    ps.int_xaxis(ax)
     ax.set_ylabel("% dos países com pesquisa PIP no ano (média móvel 3 anos)")
     ax.set_title("Frequência de pesquisas domiciliares por trajetória FCS", loc="left")
     ax.legend(fontsize=8)
