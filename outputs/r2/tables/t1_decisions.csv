@@ -1,0 +1,8 @@
+regra,decisao
+mortes,UCDP CY total de violência organizada (sb+ns+os) no território; variante state-based
+populacao,WDI SP.POP.TOTL; países sem população excluídos: TWN
+deterioracao,sem exigência de mínimo absoluto (a nota não exige); requer mortes no ano anterior > 0
+eventos concentrados,> 75% das mortes GED em 3 dias (eventos multi-dia distribuídos uniformemente) — regra própria
+onset,1º ano T1 após ≥ PW anos fora; mortes desde 1989 → onsets a partir de 1989+PW
+controles,principal: nunca T1 e nunca FCS; variante: reinclui FCS só por fragilidade institucional
+PSE,sem código GW próprio no UCDP (mortes atribuídas a Israel): não pode ser T1

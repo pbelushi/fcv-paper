@@ -1,0 +1,61 @@
+iso3,r1_g,r2_g,situacao,r2_status
+AZE,2005.0,2020.0,em ambas,tratado
+BDI,2014.0,2015.0,em ambas,tratado
+BEN,2022.0,,sai na r2,excluido_sempre_tratado
+BFA,2018.0,2018.0,em ambas,tratado
+BGD,2005.0,,sai na r2,nunca_tratado
+BRA,,2017.0,entra na r2,tratado
+CAF,,2001.0,entra na r2,tratado
+CHN,2008.0,,sai na r2,nunca_tratado
+CIV,2002.0,2002.0,em ambas,tratado
+CMR,2015.0,1994.0,em ambas,tratado
+COG,,1997.0,entra na r2,tratado
+COL,,2023.0,entra na r2,tratado
+ECU,,2021.0,entra na r2,tratado
+EGY,2014.0,2015.0,em ambas,tratado
+ERI,,1998.0,entra na r2,tratado
+ETH,,2020.0,entra na r2,tratado
+GBR,1998.0,,sai na r2,nunca_tratado
+GEO,2004.0,2008.0,em ambas,tratado
+GHA,,1994.0,entra na r2,tratado
+GIN,,2000.0,entra na r2,tratado
+GNB,,1998.0,entra na r2,tratado
+HND,,2003.0,entra na r2,tratado
+HTI,,2004.0,entra na r2,tratado
+IDN,2018.0,1999.0,em ambas,tratado
+ISR,,2001.0,entra na r2,tratado
+JOR,2016.0,,sai na r2,nunca_tratado
+KEN,2015.0,2005.0,em ambas,tratado
+KGZ,2021.0,2000.0,em ambas,tratado
+LBN,,2006.0,entra na r2,tratado
+LBY,,2011.0,entra na r2,tratado
+MEX,1994.0,2006.0,em ambas,tratado
+MLI,2007.0,2008.0,em ambas,tratado
+MOZ,2013.0,2018.0,em ambas,tratado
+MRT,2010.0,,sai na r2,nunca_tratado
+MYS,2013.0,,sai na r2,nunca_tratado
+NER,2007.0,1994.0,em ambas,tratado
+NGA,2004.0,2011.0,em ambas,tratado
+NPL,,1998.0,entra na r2,tratado
+PAK,,2007.0,entra na r2,tratado
+PER,2007.0,,sai na r2,excluido_sempre_tratado
+PHL,,2000.0,entra na r2,tratado
+PNG,,1998.0,entra na r2,tratado
+RUS,,1995.0,entra na r2,tratado
+SEN,2011.0,,sai na r2,excluido_sempre_tratado
+SRB,,1998.0,entra na r2,tratado
+SSD,,2011.0,entra na r2,tratado
+SYR,2011.0,2011.0,em ambas,tratado
+TCD,,2015.0,entra na r2,tratado
+TGO,2022.0,2005.0,em ambas,tratado
+THA,2003.0,,sai na r2,nunca_tratado
+TJK,2010.0,,sai na r2,excluido_sempre_tratado
+TUN,2013.0,,sai na r2,nunca_tratado
+TUR,,2007.0,entra na r2,tratado
+TZA,2020.0,,sai na r2,excluido_sempre_tratado
+UKR,2014.0,2014.0,em ambas,tratado
+USA,2001.0,,sai na r2,nunca_tratado
+UZB,,2000.0,entra na r2,tratado
+VEN,1992.0,,sai na r2,excluido_sempre_tratado
+YEM,,1994.0,entra na r2,tratado
+ZWE,,2008.0,entra na r2,tratado
