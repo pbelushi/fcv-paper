@@ -1,199 +1,189 @@
-# Projeto: Conflitos armados e crescimento da população em pobreza — análise DiD
+# Projeto: Medindo no escuro — conflito armado, apagão estatístico e os limites da evidência sobre pobreza (rodada 2)
 
-> Instruções para o Claude Code. Leia este arquivo inteiro antes de começar e trabalhe em **plan mode** na primeira sessão: apresente o plano de execução e aguarde aprovação antes de baixar dados ou escrever código.
+> Instruções para o Claude Code. Leia este arquivo inteiro e também `docs/CLAUDE_rodada1.md`, `report/report.md` e `report/exercicios.md` antes de começar. Trabalhe em **plan mode** na primeira sessão: apresente o plano e aguarde aprovação antes de baixar dados ou escrever código.
 
-## 1. Pergunta de pesquisa
+## 0. Contexto e o que muda em relação à rodada 1
 
-Qual o efeito causal do início (*onset*) de um conflito armado sobre (a) a taxa de pobreza extrema e (b) o **número absoluto** de pessoas abaixo da linha de pobreza internacional, no país afetado, nos anos seguintes ao início do conflito?
+A rodada 1 estimou o efeito do onset de conflito sobre a pobreza extrema (DiD escalonado, tratamento contínuo, decomposição regional, poder estatístico). Conclusões que orientam esta rodada:
 
-- **Unidade:** país-ano.
-- **Período:** 1990 até o último ano disponível no PIP (o lado do conflito começa antes para permitir janelas de paz, ver §5).
-- **Desenho:** diferenças em diferenças com adoção escalonada (*staggered*), estimadores robustos a efeitos heterogêneos. TWFE convencional entra só como referência.
+- O efeito do conflito sobre a **pobreza medida** não é identificável com os dados nacionais disponíveis. O efeito mínimo detectável fica entre 3 e 6 p.p. na taxa, e os resultados nulos não distinguem efeito zero de efeitos moderados.
+- O conflito **reduz a probabilidade de haver pesquisa domiciliar** (−8,2 p.p.). Nos anos de conflito, a pobreza publicada pelo PIP é em boa parte interpolada ou extrapolada pelo PIB.
+- A intensidade do conflito **reduz o PIB per capita**, e esse é o principal canal pelo qual a pobreza *estimada* responde.
+
+O paper passa a ter como tese a **anatomia do apagão estatístico**: os exercícios econométricos servem para demonstrar e quantificar por que não se consegue medir o efeito do conflito sobre a pobreza, e o que seria necessário para conseguir.
+
+A rodada 1 tem quatro limitações de desenho que esta rodada corrige: (a) não é comparável à classificação pública de situações de fragilidade e conflito (FCS) do Banco Mundial, referência usual em políticas de desenvolvimento; (b) usou uma única fonte de conflito (UCDP) e um limiar de 25 mortes, baixo demais, que levou EUA, Reino Unido e China ao grupo tratado; (c) não usou bases públicas relevantes, como ACLED, CPIA, missões de paz, histórico da lista FCS, deslocamento interno e pobreza multidimensional; (d) deixou de fora os países em situação de fragilidade e conflito crônicos, que concentram o problema estudado.
+
+### Organização no repositório
+- Crie a branch `rodada2`. Mova o `CLAUDE.md` anterior para `docs/CLAUDE_rodada1.md` antes de colocar este arquivo na raiz.
+- **Não altere** scripts nem saídas da rodada 1. O código novo vai em `src/r2/`, as saídas em `outputs/r2/{tables,figures}` e o relatório em `report/r2_report.md`.
+- Reutilize `src/did_tools.py` e as funções de construção do painel da rodada 1. Não reimplemente estimadores já validados.
+
+## 1. Perguntas de pesquisa
+
+**Q1. Conflito → PIB per capita.** Qual o efeito do conflito (onset e intensidade) sobre o PIB per capita? Esta é uma afirmação substantiva do paper e precisa da bateria completa de identificação.
+
+**Q2. Conflito → produção de dados.** O conflito reduz a frequência e a cobertura das pesquisas domiciliares? Por quanto tempo? Que fração da pobreza publicada para países em conflito ou na lista FCS é **medida** e que fração é **modelada**?
+
+**Q3. Limites da evidência sobre pobreza.** Dado Q1 e Q2:
+- qual efeito sobre a pobreza o canal do PIB *prevê* mecanicamente, pela própria metodologia do PIP;
+- esse efeito previsto seria detectável com o desenho disponível (efeito mínimo detectável);
+- medidas alternativas (pobreza multidimensional, diferenças longas entre pesquisas observadas) contam a mesma história?
+
+**Descritivo central.** Comparar a situação estatística de países por trajetória FCS: crônicos, que entram na lista, que saem da lista e nunca FCS.
 
 ## 2. Regras de trabalho (obrigatórias)
 
-1. **Nunca invente, interpole ou "complete" dados manualmente.** Se um download falhar, pare e reporte o erro com a URL. Não substitua por números de memória.
-2. Toda base baixada vai para `data/raw/` sem alteração e recebe uma linha em `data/raw/MANIFEST.csv` com: `arquivo, fonte, url, versão, data_download, sha256, licença/termos`.
-3. **Verifique a versão mais recente** de cada base na página oficial antes de baixar (UCDP, PIP, WDI, PWT e V-Dem são atualizados anualmente). Não assuma o número de versão deste documento.
-4. Transformações só em scripts versionados (`src/`), nunca em notebooks soltos. Um script por etapa, executável de ponta a ponta via `make all` (ou `run_all.py`).
-5. Faça `git commit` ao fim de cada etapa, com mensagem descritiva.
-6. Ao final de cada etapa, imprima um resumo: nº de países, anos, missings por variável, e qualquer decisão tomada.
-7. **Pontos de parada:** pare e pergunte ao usuário antes de (a) fixar a definição de tratamento final, (b) excluir países da amostra por critério não previsto aqui, (c) mudar a linha de pobreza.
+1. **Nunca invente, interpole ou "complete" dados manualmente.** Se um download falhar, pare e reporte o erro com a URL.
+2. Toda base baixada vai para `data/raw/` sem alteração e recebe uma linha em `data/raw/MANIFEST.csv` (`arquivo, fonte, url, versão, data_download, sha256, licença/termos`).
+3. **Verifique a versão vigente** de cada base e de cada metodologia na fonte oficial. Isso vale em especial para a **metodologia de classificação FCS**: não use limiares de memória nem deste documento; extraia-os da nota metodológica mais recente e registre a versão.
+4. Um script por etapa em `src/r2/`, executável de ponta a ponta por `python run_r2.py`. Commit ao fim de cada etapa.
+5. Ao fim de cada etapa, imprima: nº de países, anos, missings por variável e decisões tomadas.
+6. **Pontos de parada** — pare e pergunte antes de:
+   - (a) baixar ACLED (exige credenciais, ver §3.2);
+   - (b) fixar os limiares FCS extraídos da nota metodológica;
+   - (c) excluir países por critério não previsto aqui;
+   - (d) iniciar a etapa subnacional opcional (§6.6).
+7. Nenhum número no relatório sem origem em arquivo de `outputs/r2/`.
+8. **Somente fontes públicas.** Use apenas dados e documentos abertos ao público, baixados de endereços públicos e registrados no MANIFEST com a URL. Não use documentos, bases, ferramentas ou acessos institucionais restritos. Se uma informação só estiver disponível por acesso restrito, pare e registre a lacuna em vez de buscá-la. O relatório e o código não devem conter referências a material não público.
 
-## 3. Ambiente
+## 3. Dados
 
-- Python ≥ 3.11 para coleta e limpeza: `pandas`, `pyarrow`, `requests`, `wbgapi`, `country_converter`, `pyfixest`, `matplotlib`.
-- R ≥ 4.3 para estimação (pacotes mais maduros para DiD escalonado): `did`, `fixest`, `HonestDiD`, `synthdid`, `countrycode`, `arrow`, `modelsummary`, `ggplot2`.
-- Se R não estiver disponível, use Python: `pyfixest` (TWFE, Sun–Abraham via `i()`, `did2s`) e `differences` (Callaway–Sant'Anna). Registre no relatório qual implementação foi usada.
-- Crie `requirements.txt` e `renv.lock` (ou equivalente) para reprodutibilidade.
+### 3.1 Já disponíveis da rodada 1 (reutilizar)
+PIP (lineup e survey, linhas 3,00/4,20/8,30, com `estimation_type`), UCDP (ACD, BRD, GED, Country-Year), WDI, WGI, classificação de renda histórica, UNHCR (COA e COO), contiguidade COW. Confirme no MANIFEST que as versões não mudaram; se mudaram, baixe de novo e registre.
 
-Estrutura do repositório:
+### 3.2 Novas bases
 
-```
-.
-├── CLAUDE.md
-├── data/
-│   ├── raw/            # downloads originais + MANIFEST.csv
-│   ├── interim/        # bases limpas por fonte
-│   └── processed/      # panel.parquet (painel final)
-├── src/
-│   ├── 01_download.py
-│   ├── 02_clean_poverty.py
-│   ├── 03_clean_conflict.py
-│   ├── 04_clean_controls.py
-│   ├── 05_build_panel.py
-│   ├── 06_descriptives.py
-│   ├── 07_estimate.R
-│   └── 08_robustness.R
-├── outputs/
-│   ├── tables/         # .csv + .tex
-│   └── figures/        # .png + .pdf
-└── report/report.md
-```
-
-## 4. Coleta de dados (`01_download.py`)
-
-### 4.1 Pobreza — variável dependente
-
-**World Bank Poverty and Inequality Platform (PIP)** — fonte principal.
-
-- API: `https://api.worldbank.org/pip/v1/pip?country=all&year=all&povline={linha}&fill_gaps={true|false}&format=csv`
-- Baixe **duas versões**:
-  - `fill_gaps=false` → só anos com pesquisa domiciliar (dado observado).
-  - `fill_gaps=true` → séries "lineup" interpoladas/extrapoladas para todos os anos.
-- Linha de pobreza: use a linha internacional vigente da versão do PIP (desde 2025 a base usa PPC 2021, com linha extrema de US$ 3,00/dia). **Confirme na documentação da versão baixada** e registre. Baixe também as linhas superiores (US$ 4,20 e US$ 8,30 em PPC 2021) para heterogeneidade.
-- Variáveis a manter: `country_code, reporting_year, reporting_level, welfare_type, headcount, poverty_gap, poverty_severity, gini, mean, reporting_pop, survey_coverage, estimation_type` (os nomes podem variar entre versões; verifique o esquema).
-- Mantenha apenas `reporting_level == "national"`. Se houver duas séries no mesmo ano (renda e consumo), mantenha uma por país de forma consistente no tempo e documente a regra.
-
-Complementares (opcionais, para robustez):
-- **WDI** `SI.POV.DDAY` (taxa de pobreza) e `SP.POP.TOTL` (população) via `wbgapi`.
-- **Global MPI (OPHI/PNUD)** — pobreza multidimensional, para checar se o resultado não é artefato da medida monetária.
-
-### 4.2 Conflito — tratamento
-
-**UCDP/PRIO Armed Conflict Dataset (ACD)** — fonte principal.
-- Download: `https://ucdp.uu.se/downloads/` (CSV da versão mais recente). Prefira o download direto; a API do UCDP pode exigir token de acesso.
-- Campos-chave: `conflict_id, location, side_a, side_b, gwno_loc, type_of_conflict, intensity_level, year, start_date, start_date2, ep_end`.
-- `type_of_conflict`: 1 = extrassistêmico, 2 = interestatal, 3 = intraestatal, 4 = intraestatal internacionalizado.
-- `intensity_level`: 1 = 25–999 mortes em combate/ano; 2 = ≥ 1.000 (guerra).
-
-**UCDP Battle-Related Deaths Dataset** — intensidade contínua (mortes por ano e conflito). Útil para tratamento por dose.
-
-**UCDP Georeferenced Event Dataset (GED)** — eventos geocodificados desde 1989. Use para: mortes totais por país-ano (incluindo violência unilateral e não-estatal), e definição alternativa de tratamento.
-
-Opcionais:
-- **ACLED** — exige cadastro e aceite de termos de uso; só use se o usuário fornecer credenciais em `.env` (`ACLED_EMAIL`, `ACLED_KEY`). Nunca grave credenciais no repositório.
-- **Correlates of War (COW)** — guerras com ≥ 1.000 mortes, para checagem cruzada.
-
-### 4.3 Controles e variáveis de heterogeneidade
-
-| Variável | Fonte | Acesso |
+| Base | Uso | Acesso / observação |
 |---|---|---|
-| PIB per capita PPC, crescimento, inflação, comércio/PIB | WDI (`NY.GDP.PCAP.PP.KD`, `NY.GDP.MKTP.KD.ZG`, `FP.CPI.TOTL.ZG`, `NE.TRD.GNFS.ZS`) | `wbgapi` |
-| População total e urbana | WDI / UN World Population Prospects | `wbgapi` / site UN WPP |
-| Capital humano, PIB real | Penn World Table (versão mais recente) | Dataverse / site GGDC |
-| Regime político | V-Dem (`v2x_polyarchy`), Polity V | site V-Dem |
-| Governança | Worldwide Governance Indicators | WDI/`wbgapi` |
-| Desastres naturais | EM-DAT | exige cadastro (opcional) |
-| Refugiados e deslocados (para spillovers) | UNHCR Refugee Data Finder (API), IDMC | API pública |
-| Grupo de renda e região | Classificação do Banco Mundial (histórica) | site WB |
+| **ACLED** | Segunda fonte de conflito, exigida pela metodologia FCS | Exige cadastro e aceite dos termos. **Pare e peça** as credenciais (`ACLED_EMAIL`, `ACLED_KEY` em `.env`, nunca no repositório). A cobertura varia por região: começa em 1997 para a África e bem depois em outras regiões. Registre a cobertura por país-ano. |
+| **Lista FCS histórica do Banco Mundial** | Status FCS anual por país (desde FY2006), categoria (conflito/fragilidade institucional) e tipologia de trajetória | Páginas públicas do Banco Mundial (classification of fragile and conflict-affected situations). Baixe todas as listas anuais publicadas e a **nota metodológica publicada mais recente**. |
+| **CPIA** | Qualidade institucional pré-conflito (heterogeneidade) | Série pública do WDI (`IQ.CPA.*`), disponível só para países IDA. Documente a cobertura. |
+| **Missões de paz da ONU** | Heterogeneidade e diagnóstico de cobertura de pesquisas | Geo-PKO (Uppsala) ou lista oficial de operações (DPO), codificada por país-ano. |
+| **IDMC** | Deslocamento interno (estoque e novos deslocamentos por conflito) | Dados públicos do IDMC. |
+| **UNHCR** (agora nas estimações) | Saída de refugiados por 100 mil habitantes: critério FCS e mecanismo demográfico | Já baixado na rodada 1. |
+| **Pobreza multidimensional** | Medida fora da série monetária | Global MPI (OPHI/PNUD) e/ou Multidimensional Poverty Measure do Banco Mundial. Registre os anos de pesquisa de origem: o MPI também depende de pesquisas. |
+| **Statistical Performance Indicators (SPI)** | Capacidade estatística por país-ano | Banco Mundial. |
+| **Catálogo de pesquisas DHS e MICS** | Contagem de pesquisas além das usadas no PIP | API do DHS Program; catálogo MICS (UNICEF). Só metadados: país, ano e tipo da pesquisa. |
+| **Luminosidade noturna harmonizada** (opcional) | Checagem do PIB, também mal medido em conflito | Série harmonizada DMSP-VIIRS publicada em repositório aberto. Se o download for bloqueado, pare e avise. |
 
-**Atenção:** controles medidos depois do início do conflito são *bad controls* (são afetados pelo tratamento). Use apenas valores pré-tratamento (média dos anos −5 a −1 ou ano-base fixo) como covariáveis nos estimadores com condicionamento.
+## 4. Definições de tratamento
 
-## 5. Construção do painel e definição do tratamento (`03`, `05`)
+Construa **todas** as definições abaixo e mantenha as da rodada 1 como referência de comparação.
 
-### 5.1 Harmonização de códigos
-- UCDP usa códigos Gleditsch-Ward (`gwno`); PIP/WDI usam ISO3. Converta com `countrycode` (R) ou `country_converter` (Python), e trate manualmente os casos especiais (Sérvia/Iugoslávia, Sudão/Sudão do Sul, Etiópia/Eritreia, ex-URSS, Iêmen). Liste todos os casos não casados em `outputs/tables/unmatched_codes.csv`.
-- Atribua o conflito ao país **onde ocorre** (`location` / `gwno_loc`), não às partes. Conflitos interestatais com múltiplas localizações contam para cada país-localização.
+### T1 — Conflito no padrão FCS (principal)
+- Extraia da nota metodológica vigente: limiares absolutos e per capita para intensidade alta e média, por fonte (ACLED e UCDP), tipos de violência considerados e regras de exclusão.
+- Conte um país-ano como em conflito **somente se atingir os limiares nas duas fontes**, como faz a metodologia FCS. Nos anos sem cobertura ACLED, crie a versão UCDP-only com os limiares UCDP e marque `t1_source = "ucdp_only"`.
+- **Regra de eventos concentrados:** descarte o país-ano em que mais de 75% das mortes anuais ocorreram em uma janela de 3 dias, usando as datas de eventos do GED e do ACLED. Confirme o percentual e a janela na nota metodológica. Liste os casos descartados (devem incluir EUA 2001).
+- Onset T1: primeiro ano em conflito T1 após ≥ 5 anos fora dele. Exija ≥ 3 anos de pesquisa observada antes **apenas** para as análises de pobreza (Q3); para Q1 e Q2, **não** exija pesquisas, para não excluir os casos mais graves.
 
-### 5.2 Variáveis de conflito país-ano
-- `conflict_any`: ≥ 1 conflito ativo (≥ 25 mortes) no território.
-- `conflict_war`: ≥ 1 conflito com `intensity_level == 2`.
-- `brd_pc`: mortes em combate por 100 mil habitantes (Battle-Related Deaths ÷ população).
-- `conflict_years_cum`: anos acumulados em conflito.
+### T2 — Status FCS oficial
+- `fcs_any`, `fcs_conflict`, `fcs_institutional` por país-ano, a partir das listas históricas.
+- **Tipologia de trajetória** (FY2006 até a lista mais recente): crônico (na lista em ≥ 80% dos anos), entrada, saída e nunca FCS. Documente as regras de corte e teste ±10 p.p. no critério do crônico.
+- **Uso restrito:** T2 serve para descritivas e para a Q2. **Não** use T2 como tratamento causal sobre pobreza ou PIB: a lista é construída em parte com o CPIA, que reflete o desempenho econômico e institucional, e isso tornaria a estimativa circular. Explique isso no relatório.
 
-### 5.3 Tratamento principal (absorvente, para DiD escalonado)
-- **Coorte `g`** = ano de **início** do conflito, definido como o primeiro ano com `conflict_any == 1` após **pelo menos 5 anos consecutivos sem conflito** (parâmetro `PEACE_WINDOW = 5`, testar 3 e 10 na robustez).
-- Exija ≥ 3 anos de pobreza observada antes de `g` para o país entrar como tratado.
-- **Uma coorte por país:** use o primeiro onset elegível no período amostral. Onsets posteriores não geram nova coorte (o tratamento é tratado como absorvente; a reincidência entra na análise de heterogeneidade).
-- **Nunca tratados:** países sem nenhum ano de conflito no território entre (início da amostra − `PEACE_WINDOW`) e o fim da amostra.
-- **Sempre tratados:** países já em conflito no início da amostra sem janela de paz anterior → excluir da estimação principal (listar em tabela).
-- Versão alternativa: `g` definido por `conflict_war` (≥ 1.000 mortes).
+### T3 — Intensidade contínua, entrando e saindo (da rodada 1)
+- Mortes por 100 mil habitantes, ano a ano, em duas versões: UCDP (como na rodada 1) e média UCDP–ACLED nos anos com as duas fontes.
+- Dose em asinh e em faixas alinhadas aos limiares FCS: abaixo de média, média e alta intensidade.
 
-### 5.4 Variáveis de resultado
-- `pov_rate`: headcount (proporção, em pontos percentuais).
-- `n_poor = headcount × população`; `ln_n_poor = log(n_poor)`. Para valores zero, use `asinh(n_poor)` e reporte quantos zeros existem.
-- `d_ln_n_poor`: crescimento anual do número de pobres (diferença de log).
-- Variáveis secundárias: `poverty_gap`, `gini`, `mean` (consumo/renda média).
+### Grupos de comparação
+- Nunca em conflito T1 e nunca FCS no período.
+- Variante: excluir dos controles países com fragilidade institucional (`fcs_institutional`), que podem ter apagão estatístico sem conflito.
 
-### 5.5 Painel final
-Salve `data/processed/panel.parquet` com: `iso3, year, g, treated, rel_time, pov_rate, ln_n_poor, …, controles_pré, flag_observed_survey`. A flag `flag_observed_survey` indica se o ponto de pobreza é de pesquisa (`fill_gaps=false`) ou interpolado.
+## 5. Variáveis de resultado
 
-## 6. Descritivas e diagnóstico de seleção (`06_descriptives.py`)
+**Q1 — PIB:** log do PIB per capita PPC (WDI), crescimento anual e, opcionalmente, log da luminosidade noturna per capita.
 
-Antes de estimar, produza:
+**Q2 — produção de dados:**
+- `survey_pip`: há pesquisa nacional no PIP no país-ano;
+- `survey_any`: há pesquisa no PIP, DHS ou MICS;
+- `years_since_survey`: anos desde a última pesquisa no PIP;
+- `share_extrapolated`: o ponto do PIP é extrapolado ou estimado por modelo (pelo `estimation_type`);
+- nota SPI, quando disponível.
 
-1. Tabela de coortes: países por ano de onset, tipo e intensidade.
-2. Mapa ou lista de países tratados, nunca tratados e excluídos.
-3. Médias pré-tratamento por grupo (tratados × controles) com teste de diferença.
-4. Gráfico de médias brutas de `pov_rate` e `ln_n_poor` em tempo relativo.
-5. **Diagnóstico crítico — dados faltantes:** pesquisas domiciliares tendem a parar durante conflitos, e as séries "lineup" do PIP nesses anos são extrapoladas por modelo (frequentemente com base no PIB). Calcule:
-   - proporção de anos com pesquisa observada antes e depois de `g`, tratados × controles;
-   - regressão de `flag_observed_survey` sobre o tratamento (o conflito reduz a probabilidade de haver pesquisa?).
-   Reporte o resultado em destaque no relatório; ele condiciona a interpretação de tudo o que vem depois.
+**Q3 — pobreza:**
+- `pov_rate` em pontos percentuais (principal). Pela rodada 1, **não use log do número de pobres como resultado principal**: o efeito em log depende da escala e é artefato da diferença de níveis entre tratados e controles. Reporte-o apenas como robustez, com essa ressalva;
+- `mpi_headcount`;
+- `pov_rate_survey_only`: pobreza apenas em anos com pesquisa observada.
 
-## 7. Estimação (`07_estimate.R`)
+**Mecanismos demográficos:** refugiados que saem (UNHCR COO) e deslocados internos (IDMC) por 100 mil habitantes.
 
-### 7.1 Referência: TWFE
-`y_it = α_i + λ_t + β·D_it + ε_it`, com `D_it = 1{t ≥ g_i}`. Erros-padrão agrupados por país. Reporte, mas **não use como resultado principal** (viés com efeitos heterogêneos e adoção escalonada). Rode a decomposição de Goodman-Bacon para mostrar o peso das comparações "proibidas".
+## 6. Análises
 
-### 7.2 Principal: Callaway & Sant'Anna (2021)
-- Pacote `did`: `att_gt(yname, tname="year", idname, gname="g", control_group="nevertreated", est_method="dr", xformla=~ controles_pré)`.
-- Agregações: `aggte(type="dynamic", min_e=-5, max_e=10)` (event study), `type="group"`, `type="simple"`.
-- Repita com `control_group="notyettreated"`.
-- Bootstrap com cluster por país.
+### 6.1 Anatomia do apagão (descritivo central, `src/r2/01_anatomy.py`)
+Por trajetória FCS (T2) e por status de conflito T1, ano a ano:
+1. Proporção de países com pesquisa no ano, média de anos desde a última pesquisa e distribuição do `estimation_type`.
+2. **Proporção da população pobre estimada que vive em países-ano com pobreza extrapolada ou modelada**, global e dentro dos países FCS. Esta é a estatística-título do paper.
+3. Países excluídos da rodada 1 por falta de pesquisa: quantos são FCS e qual a parcela da pobreza global estimada que eles representam.
+4. Nota SPI e frequência de pesquisas DHS/MICS por trajetória.
+5. Figura principal: linha do tempo da proporção de pobreza modelada, FCS contra não FCS.
 
-### 7.3 Complementares
-- **Sun & Abraham (2021)** via `fixest::sunab(g, year)`.
-- **Borusyak, Jaravel & Spiess (2024)** — imputação (`didimputation` em R ou `did2s`).
-- **de Chaisemartin & D'Haultfœuille** (`DIDmultiplegtDYN`) — permite tratamento não absorvente (entra e sai de conflito); use como checagem da hipótese de absorção.
+### 6.2 Q2 — Conflito e produção de dados (`src/r2/02_survey_effect.py`)
+- CS com regressão de resultado, onset T1 contra nunca tratados e ainda não tratados, para `survey_pip`, `survey_any` e `share_extrapolated`. Sem exigência de pesquisa pré-onset (§4).
+- Event study de −5 a +10, para medir **por quanto tempo** o apagão dura.
+- T3 contínuo (WAOSS da rodada 1) para os mesmos resultados, com placebo.
+- Heterogeneidade: presença de missão de paz da ONU (medida **antes** do onset — a missão iniciada depois é resultado do conflito, não controle), CPIA pré-onset (só IDA), região e renda.
+- Comparar com a rodada 1 (−8,2 p.p.).
 
-### 7.4 Tratamento contínuo (intensidade)
-Event study com `brd_pc` em faixas (tercis entre tratados) ou o estimador de Callaway, Goodman-Bacon & Sant'Anna para DiD contínuo, se disponível. Objetivo: verificar gradiente dose-resposta.
+### 6.3 Q1 — Conflito e PIB per capita (`src/r2/03_gdp_effect.py`)
+- Bateria completa no onset T1: CS (REG e sem covariáveis), Sun–Abraham, BJS, event study, teste conjunto de pré-tendências, sensibilidade de Rambachan–Roth, placebo por permutação (500), antecipação de 1 e 2 anos.
+- T3 contínuo com placebo, separando escaladas e desescaladas. Na rodada 1, o placebo das escaladas também foi significativo para o PIB (−1,4%): reporte o efeito líquido do placebo.
+- **Causalidade reversa:** choques de renda aumentam o risco de conflito. Reporte o event study pré-onset de forma explícita e discuta.
+- Robustez com luminosidade noturna, se disponível: o PIB de países em conflito também é mal medido.
 
-## 8. Robustez e validade (`08_robustness.R`)
+### 6.4 Q3 — O que o canal do PIB prevê para a pobreza (`src/r2/04_gdp_passthrough.py`)
+Para cada país tratado (onset T1) com distribuição observada antes do onset:
+1. Pegue a queda de PIB per capita estimada em 6.3: o ATT agregado e, como variante, o ATT da coorte do país, em e = 0…5.
+2. Sob a hipótese do PIP (distribuição constante), a pobreza na linha *z* após uma queda de x% da renda média é igual à pobreza na linha *z*/(1 − x) da distribuição original. Consulte a **API do PIP** com `povline = 3.00/(1 − x)` no último ano observado antes do onset e calcule o aumento implícito em p.p.
+3. Agregue com os mesmos pesos do CS e compare com o efeito mínimo detectável (6.5) e com o ATT estimado na pobreza.
+4. Pergunta-chave a responder no relatório: **mesmo o efeito mecânico que o próprio modelo do PIP produz seria detectável com este desenho?**
 
-1. **Tendências paralelas:** coeficientes pré-tratamento do event study + teste conjunto. Sensibilidade de Rambachan & Roth (`HonestDiD`) para violações de até M = {0, 0,5, 1, 1,5, 2} vezes a maior variação pré-tratamento.
-2. **Somente dados observados:** reestimar usando apenas `flag_observed_survey == 1`, agregando em blocos de 3 anos para reduzir lacunas.
-3. **Janela de paz:** `PEACE_WINDOW` ∈ {3, 5, 10}.
-4. **Intensidade:** tratamento por `conflict_war` (≥ 1.000 mortes).
-5. **Spillovers:** excluir do grupo controle os países vizinhos de tratados (contiguidade terrestre via dados de fronteira do COW ou CShapes) e os grandes receptores de refugiados (UNHCR). Em seguida, estimar o efeito sobre os vizinhos como tratamento à parte.
-6. **Antecipação:** `anticipation = 1` e `= 2` no `att_gt`.
-7. **Synthetic DiD** (`synthdid`) para as coortes com maior número de países.
-8. **Placebo:** atribuir datas de onset aleatórias aos nunca tratados (500 permutações) e comparar a distribuição com o ATT estimado.
-9. **Medida alternativa:** linhas de US$ 4,20 e US$ 8,30; MPI quando disponível.
-10. **Heterogeneidade:** região, grupo de renda pré-conflito, tipo de conflito (intra × interestatal), duração (≤ 2 anos × > 2 anos), regime político pré-conflito.
+### 6.5 Q3 — Pobreza: efeitos, medidas alternativas e poder (`src/r2/05_poverty.py`)
+- CS REG onset T1 para `pov_rate`, `pov_rate_survey_only` (blocos de 3 anos) e `mpi_headcount`.
+- **Diferenças longas entre pesquisas:** para cada tratado, a última pesquisa antes do onset e a primeira depois; para os controles, pares de pesquisas com intervalo comparável no mesmo período. Estime por regressão ponderada. Usa só pobreza medida e evita a interpolação.
+- **Efeito mínimo detectável** por simulação placebo, reutilizando `src/14_power_simulation.py`, para o onset T1. Reporte também 2,8 × EP real e use o maior dos dois como referência, como na rodada 1.
+- Placebo do T3 contínuo para `pov_rate`: verifique se o placebo positivo das escaladas da rodada 1 desaparece quando se usa só pobreza medida. Isso testa a hipótese de que a **interpolação entre pesquisas cria pré-tendência artificial**.
+- Mecanismo demográfico: efeito do onset sobre refugiados que saem e deslocados internos por 100 mil habitantes.
 
-## 9. Saídas esperadas
+### 6.6 Opcional — subnacional (pare e pergunte antes)
+GED e ACLED georreferenciados cruzados com o índice de riqueza do DHS (exige cadastro) ou com estimativas subnacionais de pobreza (GSAP). Comparar regiões afetadas e não afetadas dentro do mesmo país. Só inicie com aprovação explícita: muda o escopo e o prazo.
 
-- `outputs/tables/main_results.(csv|tex)`: ATT agregado por estimador e variável de resultado.
-- `outputs/figures/event_study_{outcome}_{estimator}.png`: com IC 95% e linha em t = −1.
-- `outputs/tables/robustness.(csv|tex)`.
-- `outputs/tables/cohorts.csv`, `excluded_countries.csv`, `unmatched_codes.csv`.
-- `report/report.md` contendo: (1) fontes e versões (copiar do MANIFEST), (2) decisões de construção da amostra, (3) diagnóstico de dados faltantes, (4) resultados principais, (5) robustez, (6) limitações. Escreva em português.
+## 7. Robustez transversal
+- Todas as análises de 6.2 a 6.5 com: T1 dupla fonte × UCDP-only; limiar de intensidade média × alta; janela de paz 3, 5 e 10 anos; controles com e sem fragilidade institucional.
+- Comparação explícita com a definição da rodada 1 (25 mortes): quantos tratados saem, quantos entram, e como os resultados mudam.
+- Bonferroni ou Romano–Wolf para as heterogeneidades.
 
-## 10. Limitações a discutir no relatório (não omitir)
+## 8. Saídas
 
-- **Causalidade reversa:** pobreza e choques econômicos aumentam o risco de conflito. O event study mostra se há divergência pré-tratamento, mas não resolve o problema; registre isso explicitamente.
-- **Dados de pobreza em zonas de conflito** são escassos e, nos anos de guerra, frequentemente imputados por modelo. Isso pode atenuar ou exagerar efeitos.
-- **Interpretação do ATT:** efeito médio sobre países que entraram em conflito após um período de paz — não generalizável para conflitos crônicos.
-- **Deslocamento populacional:** refugiados que saem do país reduzem a população residente e podem reduzir mecanicamente `n_poor`. Compare os resultados para taxa e para número absoluto e discuta.
+- `outputs/r2/tables/`: `anatomy_*.csv`, `survey_effect.csv`, `gdp_effect.csv`, `passthrough.csv`, `poverty_effects.csv`, `mde.csv`, `treatment_comparison_r1_r2.csv`, `fcs_thresholds_used.csv` (com a versão da nota metodológica), `concentrated_events_dropped.csv`.
+- `outputs/r2/figures/`: linha do tempo da pobreza modelada (figura principal), event studies de Q1 e Q2, gráfico comparando o efeito implícito do PIB, o MDE e o ATT estimado.
+- `report/r2_report.md`, em português, organizado pela **anatomia do apagão**:
+  1. Fontes, versões e limiares FCS usados.
+  2. O que mudou em relação à rodada 1 (tratados, amostra).
+  3. Anatomia do apagão (6.1).
+  4. Conflito e produção de dados (Q2).
+  5. Conflito e PIB (Q1).
+  6. O que o canal do PIB prevê e o que o desenho consegue detectar (Q3).
+  7. Medidas alternativas: MPI e diferenças longas.
+  8. Limitações.
+  9. Implicações para produção de dados em contextos FCV.
 
-## 11. Checklist final antes de entregar
+## 9. Limitações a discutir (não omitir)
 
-- [ ] `make all` (ou `python run_all.py`) roda do zero sem intervenção.
-- [ ] MANIFEST completo, com versão e hash de todas as bases.
-- [ ] Nenhum número no relatório sem origem em um arquivo de `outputs/`.
+- **Circularidade da lista FCS:** o CPIA e a classificação refletem desempenho econômico e institucional. Por isso, T2 não é usado como tratamento causal.
+- **ACLED:** cobertura curta e desigual por região. Os resultados com dupla fonte valem para um período menor.
+- **Missões de paz:** são consequência do conflito. Só entram como característica pré-onset.
+- **PIB em conflito:** as contas nacionais também se deterioram. O efeito em Q1 pode estar mal medido na mesma direção do problema que o paper descreve.
+- **MPI:** também depende de pesquisas e herda parte do apagão.
+- **Causalidade reversa** em Q1 e na intensidade (T3).
+- **Ausência de evidência:** nenhuma conclusão do tipo "o conflito não afeta a pobreza". A formulação correta é sobre o que é detectável com os dados disponíveis.
+
+## 10. Checklist final
+
+- [ ] `python run_r2.py` roda do zero sem intervenção (exceto credenciais ACLED).
+- [ ] MANIFEST completo, com a versão da nota metodológica FCS.
+- [ ] Limiares FCS extraídos da fonte, não de memória, e registrados em `fcs_thresholds_used.csv`.
+- [ ] Rodada 1 intacta; comparação r1 × r2 documentada.
+- [ ] Estatística-título (proporção da pobreza modelada) calculada e verificada contra o `estimation_type` do PIP.
 - [ ] Contagens de países e anos batem entre tabelas, figuras e texto.
-- [ ] Diagnóstico de seleção por dados faltantes incluído e discutido.
-- [ ] Limitações da §10 presentes no relatório.
+- [ ] Limitações da §9 presentes no relatório.
